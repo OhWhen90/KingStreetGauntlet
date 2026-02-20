@@ -26,7 +26,6 @@
             scroll-behavior: smooth;
         }
 
-        /* ANTI-SPOILER: Everything clickable looks the same */
         .emoji-click, span[onclick], .challenge-title, h1, .score-box {
             cursor: pointer;
             user-select: none;
@@ -70,7 +69,6 @@
         }
 
         .loc-btn:active { transform: scale(0.95); }
-        .duck-flash { background-color: #fff176 !important; border-color: #fbc531 !important; color: #7f8c8d !important; }
 
         .challenge-card {
             background: var(--card-bg); border-radius: 15px; padding: 15px; 
@@ -122,6 +120,18 @@
     </div>
 
     <div class="challenge-card">
+        <div class="challenge-title">📣 The Public Embarrassment Tour</div>
+        <div class="challenge-desc">Announce your arrival at each venue with the required catchphrase.</div>
+        <div class="flipper-grid">
+            <div class="flipper-loc"><span>The Bank: "I'm here to make a deposit!"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
+            <div class="flipper-loc"><span>Websters: "Words cannot describe this thirst!"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
+            <div class="flipper-loc"><span>Kelly’s: "Is there a pot of gold at this bar?"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
+            <div class="flipper-loc"><span>The Cooper’s: "I’ve come to barrel through!"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
+            <div class="flipper-loc"><span>The Newtown: "New town, same old thirst!"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
+        </div>
+    </div>
+
+    <div class="challenge-card">
         <div class="challenge-title">🦸‍♂️ Dorothee's Delight (WEBSTERS ONLY)</div>
         <div class="challenge-desc">Perform your best superhero impersonation.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Perform impersonation</label>
@@ -132,29 +142,24 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">⚓ The Anchor</div>
-        <div class="challenge-desc">Drink a full drink without letting go of the glass (No shots).</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Drink completed without letting go</label>
-    </div>
-
-    <div class="challenge-card">
-        <div class="challenge-title">🐱 The Kitty Cat</div>
-        <div class="challenge-desc">Find a cat and take a selfie with it.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" id="cat-1" data-points="1"> Find a cat and take a selfie</label>
-        <div class="bonus-section locked">
-            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" id="cat-2" data-points="1"> Find a second cat/selfie</label>
-            <div id="cat-3-wrapper" class="locked">
-                <label class="checkbox-item" style="margin-left: 15px;"><input type="checkbox" class="bonus-chk" id="cat-3" data-points="1"> Find a third cat/selfie</label>
-            </div>
+        <div class="challenge-title">🎓 The Grad Cap Challenge</div>
+        <div class="challenge-desc">At three different pub stops, place a small item on your head, shout a celebratory phrase, and throw it off.</div>
+        <div style="display: flex; justify-content: space-around; margin-top: 15px;">
+            <label style="text-align:center; font-size: 0.7rem;">Stop 1<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">Stop 2<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">Stop 3<br><input type="checkbox" class="base-chk" data-points="1"></label>
         </div>
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🎵 The Staff Anthem</div>
-        <div class="challenge-desc">Write a new verse of the school song about any current staff member.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Verse written</label>
+        <div class="challenge-title">🐱 Kitty Cat Call Back</div>
+        <div class="challenge-desc">Find a cat and take a selfie with it.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" id="cat-1" data-points="1"> Find a cat and take a selfie</label>
         <div class="bonus-section locked">
-            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Sing it to the bar</label>
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" id="cat-2" data-points="1"> Find a second cat and take a selfie</label>
+            <div id="cat-3-wrapper" class="locked">
+                <label class="checkbox-item" style="margin-left: 15px;"><input type="checkbox" class="bonus-chk" id="cat-3" data-points="1"> Find a third cat and take a selfie</label>
+            </div>
         </div>
     </div>
 
@@ -171,36 +176,14 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🙋‍♂️ The Attention Grabber</div>
-        <div class="challenge-desc">Keep your right arm raised straight up for 5 minutes.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Arm raised for 5 minutes</label>
-        <div class="bonus-section locked">
-            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> You cannot speak while your arm is up</label>
-        </div>
-    </div>
-
-    <div class="challenge-card">
         <div class="challenge-title">🔠 The Acronym</div>
-        <div class="challenge-desc">Drink your name. Order <b>four</b> drinks starting with the first <b>four</b> letters of your name.</div>
-        <div style="font-size: 0.75rem; color: #95a5a6; margin-bottom: 5px;">Example (using the name TRACEY):</div>
-        <div class="acrostic">
-            <b>T</b>equila Sunrise<br>
-            <b>R</b>ibena<br>
-            <b>A</b>perol Spritz<br>
-            <b>C</b>rown Lager
-        </div>
+        <div class="challenge-desc">Order <b>four</b> drinks starting with the first <b>four</b> letters of your name.</div>
         <div style="display: flex; justify-content: space-between; margin-top: 15px;">
             <label style="text-align:center; font-size: 0.7rem;">1st Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
             <label style="text-align:center; font-size: 0.7rem;">2nd Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
             <label style="text-align:center; font-size: 0.7rem;">3rd Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
             <label style="text-align:center; font-size: 0.7rem;">4th Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
         </div>
-    </div>
-
-    <div class="challenge-card">
-        <div class="challenge-title">💬 The Scripted Order</div>
-        <div class="challenge-desc">Order a drink using only specific scripted phrases.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Successful scripted order</label>
     </div>
 
     <div id="secret-section" class="challenge-card secret-card">
@@ -214,33 +197,15 @@
         </div>
 
         <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🦆 The Duck Hunt</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Secure a rubber duck from the Newtown Hotel via purchase or charm.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Duck acquired</label>
+            <div class="challenge-title">🥚 Easter is Gone but Not Forgotten</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Find and consume an egg (chocolate or otherwise) mid-crawl.</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Egg consumed</label>
         </div>
 
         <div style="margin-bottom: 15px;">
             <div class="challenge-title">🥧 Daniella Dessert</div>
             <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Acquire and consume a full pie or a slice mid-crawl.</div>
             <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Pie secured</label>
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">👻 Ghost Mode</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Take a group photo with at least three school staff members.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Evidence captured</label>
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🤝 Roundhouse</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Convince a stranger to join a group toast.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="2"> Cheers with a stranger</label>
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">👑 The King</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Have a local resident sign a digital coaster.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="5"> Signature obtained</label>
         </div>
     </div>
 
@@ -270,12 +235,9 @@
     
     let inputSeq = "";
     const targetSeq = "BNBN"; 
+    const v = "v28"; 
 
     function tap(letter, btn) {
-        if (letter === 'N') {
-            btn.classList.add('duck-flash');
-            setTimeout(() => btn.classList.remove('duck-flash'), 400);
-        }
         inputSeq += letter;
         if (inputSeq === targetSeq) { unlockSecrets(); inputSeq = ""; }
         else if (!targetSeq.startsWith(inputSeq)) { inputSeq = (letter === "B") ? "B" : ""; }
@@ -285,8 +247,8 @@
         secretSection.style.display = 'block';
         secretScoreBox.style.display = 'block';
         hideBtn.style.display = 'block';
-        localStorage.setItem('unlocked_v24', 'true');
-        localStorage.setItem('hidden_v24', 'false');
+        localStorage.setItem('unlocked_'+v, 'true');
+        localStorage.setItem('hidden_'+v, 'false');
         calculateScore();
     }
 
@@ -294,7 +256,7 @@
         secretSection.style.display = 'none';
         secretScoreBox.style.display = 'none';
         hideBtn.style.display = 'none';
-        localStorage.setItem('hidden_v24', 'true');
+        localStorage.setItem('hidden_'+v, 'true');
         calculateScore();
     }
 
@@ -312,7 +274,7 @@
                     bonusSection.classList.add('locked');
                     bonusSection.querySelectorAll('input').forEach(cb => { 
                         cb.checked = false; 
-                        localStorage.setItem('ch_v24_'+Array.from(checkboxes).indexOf(cb), 'false');
+                        localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(cb), 'false');
                     });
                 }
             }
@@ -320,7 +282,7 @@
         const c1 = document.getElementById('cat-1'), c2 = document.getElementById('cat-2'), 
               c3 = document.getElementById('cat-3'), w3 = document.getElementById('cat-3-wrapper');
         if (c1 && c2 && c1.checked && c2.checked) w3.classList.remove('locked');
-        else if (w3) { w3.classList.add('locked'); c3.checked = false; localStorage.setItem('ch_v24_'+Array.from(checkboxes).indexOf(c3), 'false'); }
+        else if (w3) { w3.classList.add('locked'); c3.checked = false; localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(c3), 'false'); }
     }
 
     function calculateScore() {
@@ -344,14 +306,14 @@
     }
 
     window.onload = () => {
-        if(localStorage.getItem('unlocked_v24') === 'true' && localStorage.getItem('hidden_v24') !== 'true') { unlockSecrets(); }
-        checkboxes.forEach((cb, i) => { if(localStorage.getItem('ch_v24_'+i) === 'true') cb.checked = true; });
+        if(localStorage.getItem('unlocked_'+v) === 'true' && localStorage.getItem('hidden_'+v) !== 'true') { unlockSecrets(); }
+        checkboxes.forEach((cb, i) => { if(localStorage.getItem('ch_'+v+'_'+i) === 'true') cb.checked = true; });
         updateLocks(); calculateScore();
     };
 
     checkboxes.forEach((cb, i) => {
         cb.addEventListener('change', () => {
-            localStorage.setItem('ch_v24_'+i, cb.checked);
+            localStorage.setItem('ch_'+v+'_'+i, cb.checked);
             updateLocks(); calculateScore();
         });
     });

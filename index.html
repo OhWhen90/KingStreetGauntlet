@@ -28,7 +28,6 @@
             user-select: none; 
         }
 
-        /* Stealth Cursors */
         h1, h2, h3, .challenge-title, span, label, input, .loc-btn, .btn, .clear-btn, .checkbox-item {
             cursor: default !important;
         }
@@ -75,7 +74,7 @@
             margin-bottom: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f1f2f6;
         }
         
-        .secret-card { background: #fdfaff; border: 2px dashed var(--secret); display: none; animation: fadeIn 0.8s ease; }
+        .secret-card { background: #fdfaff; border: 2px dashed var(--secret); animation: fadeIn 0.8s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .challenge-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 6px; color: var(--text); }
@@ -120,19 +119,10 @@
         .timer-display { font-family: monospace; font-size: 1.4rem; color: var(--primary); font-weight: bold; display: none; margin: 8px 0; }
 
         .riddle-box {
-            margin-top: 15px;
-            padding: 20px;
-            background: #fff;
-            border: 2px solid var(--secondary);
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            white-space: pre-line;
+            margin-top: 15px; padding: 20px; background: #fff; border: 2px solid var(--secondary); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); white-space: pre-line;
         }
 
-        #confetti-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 999;
-        }
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
     </style>
 </head>
 <body>
@@ -159,7 +149,7 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🦸‍♂️ Dorothee's Delight (WEBSTERS ONLY)</div>
+        <div class="challenge-title">🦸‍♂️ Dorothee's Delight (WEBSTERS ONLY)</div>
         <div class="challenge-desc">Perform your best superhero impersonation.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Perform impersonation</label>
         <div class="bonus-section locked">
@@ -169,19 +159,19 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">⚓ The Anchor</div>
+        <div class="challenge-title">⚓ The Anchor</div>
         <div class="challenge-desc">Drink a full drink without letting go of the glass (No shots).</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Drink completed without letting go</label>
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🍹 The Diana Special</div>
+        <div class="challenge-title">🍹 The Diana Special</div>
         <div class="challenge-desc">Drink an entire drink using three straws simultaneously.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Triple-straw mastery</label>
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title" onclick="document.getElementById('grad-1').click()">🎓 The Grad Cap Challenge</div>
+        <div class="challenge-title">🎓 The Grad Cap Challenge</div>
         <div class="challenge-desc">Place an item on your head and throw it off at 3 different stops.</div>
         <div class="progress-container"><div id="grad-progress" class="progress-bar"></div></div>
         <div style="display: flex; justify-content: space-around; margin-top: 15px;">
@@ -192,7 +182,7 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title" onclick="document.getElementById('cat-1').click()">🐱 Kitty Cat Call Back</div>
+        <div class="challenge-title">🐱 Kitty Cat Call Back</div>
         <div class="challenge-desc">Find a cat and take a selfie with it.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" id="cat-1" data-points="1"> Find a cat and take a selfie</label>
         <div class="bonus-section locked">
@@ -204,7 +194,7 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🎵 The Staff Anthem</div>
+        <div class="challenge-title">🎵 The Staff Anthem</div>
         <div class="challenge-desc">Write a new verse of the school song about any current staff member.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Verse written</label>
         <div class="bonus-section locked">
@@ -225,7 +215,7 @@
     </div>
 
     <div class="challenge-card" id="grabber-card">
-        <div class="challenge-title" onclick="document.getElementById('timer-trigger').click()">🙋‍♂️ The Attention Grabber</div>
+        <div class="challenge-title">🙋‍♂️ The Attention Grabber</div>
         <div class="challenge-desc">Keep your right arm raised straight up for 2 minutes.</div>
         <label class="checkbox-item"><input type="checkbox" id="timer-trigger" class="base-chk root-trigger" data-points="1"> Arm raised for 2 minutes</label>
         <div id="countdown" class="timer-display">02:00</div>
@@ -237,15 +227,6 @@
     <div class="challenge-card">
         <div class="challenge-title">🔠 The Acronym</div>
         <div class="challenge-desc">Order <b>four</b> drinks starting with the first <b>four</b> letters of your name.</div>
-        
-        <div class="example-box">
-            <i>Example for <b>Tracey</b>:</i><br>
-            <span class="acrostic"><b>T</b>equila Sunrise</span>
-            <span class="acrostic"><b>R</b>ibena</span>
-            <span class="acrostic"><b>A</b>perol Spritz</span>
-            <span class="acrostic"><b>C</b>rown Lager</span>
-        </div>
-
         <div class="name-wrapper">
             <input type="text" id="name-field" class="name-input" placeholder="Type your name..." maxlength="20">
             <button class="clear-btn" onclick="clearName()">×</button>
@@ -259,108 +240,91 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">💬 The Scripted Order</div>
-        <div class="challenge-desc">You are forbidden from using standard drink names. You must order your drink using <b>only</b> one of these three scripted phrases:</div>
-        <div class="example-box">
-            1. "I'll have the usual, thanks."<br>
-            2. "Surprise me."<br>
-            3. "I'll have what they're having." (Points to a stranger or friend)
-        </div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Ordered successfully using the script</label>
+        <div class="challenge-title">💬 The Scripted Order</div>
+        <div class="challenge-desc">Order using only: "I'll have the usual", "Surprise me", or "I'll have what they're having".</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Success</label>
     </div>
 
-    <div id="secret-section" class="challenge-card secret-card">
-        <div class="challenge-title" style="color: var(--secret); font-size: 1.2rem;">🕵️ Extra Secrets</div>
-        <div style="margin-bottom: 20px;">
-            <div class="challenge-title">📣 The Public Embarrassment Tour (1pt each)</div>
-            <div class="challenge-desc">Announce arrival at each venue with a specific catchphrase.</div>
-            <div class="flipper-grid">
-                <div class="flipper-loc"><span>Bank: "I'm here to make a deposit!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-                <div class="flipper-loc"><span>Websters: "Words cannot describe this thirst!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-                <div class="flipper-loc"><span>Kelly’s: "Is there a pot of gold at this bar?"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-                <div class="flipper-loc"><span>Cooper’s: "I’ve come to barrel through!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-                <div class="flipper-loc"><span>The Newtown Hotel: "New town, same old thirst!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-            </div>
-        </div>
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🌍 The Polyglot Principle (4 pts)</div>
-            <div class="challenge-desc">Learn and say "We need leadership" in a new language.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Phrase mastered and performed</label>
-        </div>
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🍷 The Glandular Redeemer (3 pts)</div>
-            <div class="challenge-desc">A selfless act of refreshment: Buy Owen a drink.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Bounty delivered</label>
-        </div>
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🥚 Easter Forgotten (4 pts)</div>
-            <div class="challenge-desc">Acquire and consume a whole egg mid-crawl.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Egg consumed</label>
-        </div>
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🥧 The Daniella Dish (4 pts)</div>
-            <div class="challenge-desc">Acquire and consume a pie (sweet or savory) mid-crawl.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Pie secured</label>
-        </div>
-    </div>
-
+    <div id="secret-anchor"></div>
+    
     <button id="hide-btn" class="btn hide-btn" onclick="hideSecrets()">🙈 Hide Secrets</button>
     <button class="btn reset-btn" onclick="resetScores()">Start Fresh</button>
 
     <div style="text-align: center; margin-top: 30px; padding-bottom: 50px;">
-        <span onclick="toggleRiddle()" style="font-size: 1.8rem; opacity: 0.6;">📜</span>
-        <div id="riddle-text" style="display: none;">
-            <div class="riddle-box">
-                <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 15px; text-align: center; font-size: 1.1rem;">The Royal Pendulum</p>
-                <p style="font-style: italic; color: #636e72; font-size: 1rem; line-height: 1.8; text-align: center; margin: 0;">
-                    Where the coin is kept, the pulse begins,
-                    On to the sign where the lemon mallard swims.
-                    Then find the well where the liquid is gold,
-                    Before the final tale of the king is told.
-                </p>
-            </div>
-        </div>
+        <span onclick="toggleRiddle()" style="font-size: 1.8rem; opacity: 0.6; cursor: pointer;">📜</span>
+        <div id="riddle-anchor"></div>
     </div>
 </div>
 
 <script>
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const secretSection = document.getElementById('secret-section');
-    const secretScoreBox = document.getElementById('secret-score-box');
-    const hideBtn = document.getElementById('hide-btn');
-    const riddleText = document.getElementById('riddle-text');
-    const gradBar = document.getElementById('grad-progress');
-    const nameField = document.getElementById('name-field');
+    // OBFUSCATED STRINGS
+    const encSecrets = "PGRpdiBpZD0ic2VjcmV0LXNlY3Rpb24iIGNsYXNzPSJjaGFsbGVuZ2UtY2FyZCBzZWNyZXQtY2FyZCI+PGRpdiBjbGFzcz0iY2hhbGxlbmdlLXRpdGxlIiBzdHlsZT0iY29sb3I6dmFyKC0tc2VjcmV0KTsgZm9udC1zaXplOiAxLjJyZW07Ij7wnZ6UIFNlY3JldCBDaGFsbGVuZ2VzPC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luLWJvdHRvbTogMjBweDsiPjxkaXYgY2xhc3M9ImNoYWxsZW5nZS10aXRsZSI+8J+TiSBUaGUgUHVibGljIEVtYmFycmFzc21lbnQgVG91ciAoMXB0IGVhY2gpPC9kaXY+PGRpdiBjbGFzcz0iZmxpcHBlci1ncmlkIj48ZGl2IGNsYXNzPSJmbGlwcGVyLWxvYyI+PHNwYW4+QmFuazogIkknbSBoZXJlIHRvIG1ha2UgYSBkZXBvc2l0ISIsPC9zcGFuPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgY2xhc3M9InNlY3RldC1jaGsiIGRhdGEtcG9pbnRzPSIxIj48L2Rpdj48ZGl2IGNsYXNzPSJmbGlwcGVyLWxvYyI+PHNwYW4+V2ViOiAiV29yZHMgY2Fubm90IGRlc2NyaWJlIHRoaXJzdCEiPC9zcGFuPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgY2xhc3M9InNlY3RldC1jaGsiIGRhdGEtcG9pbnRzPSIxIj48L2Rpdj48ZGl2IGNsYXNzPSJmbGlwcGVyLWxvYyI+PHNwYW4+S2VsbHlzOiAiSXMgdGhlcmUgYSBwb3Qgb2YgZ29sZCBoZXJlPyI8L3NwYW4+PGlucHV0IHR5cGU9ImNoZWNrYm94IiBjbGFzcz0ic2VjcmV0LWNoayIgZGF0YS1wb2ludHM9IjEiPjwvZGl2PjxkaXYgY2xhc3M9ImZsaXBwZXItbG9jIj48c3Bhbj5Db29wZXJzOiAiSSd2ZSBjb21lIHRvIGJhcnJlbCB0aHJvdWdoISIsPC9zcGFuPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgY2xhc3M9InNlY3RldC1jaGsiIGRhdGEtcG9pbnRzPSIxIj48L2Rpdj48ZGl2IGNsYXNzPSJmbGlwcGVyLWxvYyI+PHNwYW4+TmV3dG93bjogIk5ldyB0b3duLCBzYW1lIG9sZCB0aGlyc3QhIjwvc3Bhbj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIiBkYXRhLXBvaW50cz0iMSI+PC9kaXY+PC9kaXY+PC9kaXY+PGxhYmVsIGNsYXNzPSJjaGVja2JveC1pdGVtIj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIiBkYXRhLXBvaW50cz0iNCI+IPCfip4gUG9seWdsb3QgUHJpbmNpcGxlICg0IHB0cyk8L2xhYmVsPjxsYWJlbCBjbGFzcz0iY2hlY2tib3gtaXRlbSI+PGlucHV0IHR5cGU9ImNoZWNrYm94IiBjbGFzcz0ic2VjcmV0LWNoayIgZGF0YS1wb2ludHM9IjMiPiDwnYy3IEJ1eSBPd2VuIGEgZHJpbmsgKDMgcHRzKTwvbGFiZWw+PGxhYmVsIGNsYXNzPSJjaGVja2JveC1pdGVtIj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIiBkYXRhLXBvaW50cz0iNCI+IPCfmZogRWF0IGEgd2hvbGUgZWdnICg0IHB0cyk8L2xhYmVsPjxsYWJlbCBjbGFzcz0iY2hlY2tib3gtaXRlbSI+PGlucHV0IHR5cGU9ImNoZWNrYm94IiBjbGFzcz0ic2VjcmV0LWNoayIgZGF0YS1wb2ludHM9IjQiPiDwn6enIEVhdCBhIHBpZSAoNCBwdHMpPC9sYWJlbD48L2Rpdj4=";
+    const encRiddle = "PGRpdiBpZD0icmlkZGxlLXRleHQiIGNsYXNzPSJyaWRkbGUtYm94Ij48cCBzdHlsZT0idGV4dC10cmFuc2Zvcm06IHVwcGVyY2FzZTsgY29sb3I6IHZhcigtLXNlY29uZGFyeSk7IGZvbnQtd2VpZ2h0OiBib2xkOyBtYXJnaW4tYm90dG9tOiAxNXB4OyB0ZXh0LWFsaWduOiBjZW50ZXI7IGZvbnQtc2l6ZTogMS4xcmVtOyI+VGhlIFJveWFsIFBlbmR1bHVtPC9wPjxwIHN0eWxlPSJmb250LXN0eWxlOiBpdGFsaWM7IGNvbG9yOiAjNjM2ZTcyOyBmb250LXNpemU6IDFyZW07IGxpbmUtaGVpZ2h0OiAxLjg7IHRleHQtYWxpZ246IGNlbnRlcjsgbWFyZ2luOiAwOyI+V2hlcmUgdGhlIGNvaW4gaXMga2VwdCwgdGhlIHB1bHNlIGJlZ2lucywKT24gdG8gdGhlIHNpZ24gd2hlcmUgdGhlIGxlbW9uIG1hbGxhcmQgc3dpbXMuClRoZW4gZmluZCB0aGUgd2VsbCB3aGVyZSB0aGUgbGlxdWlkIGlzIGdvbGQsCkJlZm9yZSB0aGUgZmluYWwgdGFsZSBvZiB0aGUga2luZyBpcyB0b2xkLjwvcD48L2Rpdj4=";
+
+    const v = "v60";
+    let inputSeq = "";
+    let particles = [];
     const canvas = document.getElementById('confetti-canvas');
     const ctx = canvas.getContext('2d');
-    const v = "v55"; 
-
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function tap(letter) {
+        inputSeq += letter;
+        if (inputSeq === "BNBN") { unlockSecrets(true); inputSeq = ""; }
+        else if (!"BNBN".startsWith(inputSeq)) { inputSeq = (letter === "B") ? "B" : ""; }
+    }
+
+    function unlockSecrets(isFresh = false) {
+        if (!document.getElementById('secret-section')) {
+            document.getElementById('secret-anchor').innerHTML = atob(encSecrets);
+        }
+        document.getElementById('secret-section').style.display = 'block';
+        document.getElementById('secret-score-box').style.display = 'block';
+        document.getElementById('hide-btn').style.display = 'block';
+        localStorage.setItem('unlocked_'+v, 'true');
+        
+        document.querySelectorAll('.secret-chk').forEach((cb, i) => {
+            if(localStorage.getItem('sec_'+v+'_'+i) === 'true') cb.checked = true;
+            cb.addEventListener('change', () => { 
+                localStorage.setItem('sec_'+v+'_'+i, cb.checked); 
+                calculateScore(); 
+            });
+        });
+
+        if (isFresh) {
+            playUnlockSound(); createConfetti(); drawConfetti();
+            setTimeout(() => { document.getElementById('secret-section').scrollIntoView({ behavior: 'smooth' }); }, 150);
+        }
+        calculateScore();
+    }
+
+    function toggleRiddle() {
+        const anchor = document.getElementById('riddle-anchor');
+        if (!anchor.innerHTML) anchor.innerHTML = atob(encRiddle);
+        const box = document.getElementById('riddle-text');
+        box.style.display = (box.style.display === 'none' ? 'block' : 'none');
+        if(box.style.display === 'block') box.scrollIntoView({behavior:'smooth'});
+    }
+
     function playUnlockSound() {
         try {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.type = 'sine';
             osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.3);
             gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
             osc.start(); osc.stop(audioCtx.currentTime + 0.3);
         } catch(e) {}
     }
 
-    let particles = [];
     function createConfetti() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         for (let i = 0; i < 80; i++) {
             particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height - canvas.height,
-                r: Math.random() * 6 + 4,
-                d: Math.random() * 10,
-                color: ["#ff6b6b", "#4ecdc4", "#fbc31", "#a29bfe"][Math.floor(Math.random() * 4)],
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height,
+                r: Math.random() * 6 + 4, d: Math.random() * 10,
+                color: ["#ff6b6b", "#4ecdc4", "#fbc531", "#a29bfe"][Math.floor(Math.random() * 4)],
                 tilt: Math.random() * 10 - 10
             });
         }
@@ -370,18 +334,59 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach((p, i) => {
             ctx.beginPath(); ctx.lineWidth = p.r; ctx.strokeStyle = p.color;
-            ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
-            ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
-            ctx.stroke();
-            p.y += Math.cos(p.d) + 1 + p.r / 2;
-            p.tilt = Math.sin(p.d) * 15;
+            ctx.moveTo(p.x + p.tilt + p.r / 2, p.y); ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+            ctx.stroke(); p.y += Math.cos(p.d) + 1 + p.r / 2; p.tilt = Math.sin(p.d) * 15;
             if (p.y > canvas.height) particles.splice(i, 1);
         });
         if (particles.length > 0) requestAnimationFrame(drawConfetti);
     }
 
-    nameField.addEventListener('input', updateNameLabels);
-    function clearName() { nameField.value = ""; updateNameLabels(); }
+    function updateLocks() {
+        document.querySelectorAll('.challenge-card').forEach(card => {
+            const root = card.querySelector('.root-trigger'), bonus = card.querySelector('.bonus-section');
+            if (root && bonus) {
+                if (root.checked) bonus.classList.remove('locked');
+                else bonus.classList.add('locked');
+            }
+        });
+        const g1 = document.getElementById('grad-1'), g2 = document.getElementById('grad-2'), g3 = document.getElementById('grad-3');
+        let prog = 0;
+        if (g1 && g1.checked) { document.getElementById('grad-2-wrapper').classList.remove('locked'); prog = 33; }
+        if (g1 && g1.checked && g2 && g2.checked) { document.getElementById('grad-3-wrapper').classList.remove('locked'); prog = 66; }
+        if (g1 && g1.checked && g2 && g2.checked && g3 && g3.checked) prog = 100;
+        document.getElementById('grad-progress').style.width = prog + "%";
+        
+        const c1 = document.getElementById('cat-1'), c2 = document.getElementById('cat-2'), c3w = document.getElementById('cat-3-wrapper');
+        if (c1 && c1.checked && c2 && c2.checked) c3w.classList.remove('locked');
+        else c3w.classList.add('locked');
+    }
+
+    function calculateScore() {
+        let b = 0, mb = 0, bo = 0, mbo = 0, s = 0, ms = 0;
+        document.querySelectorAll('.base-chk').forEach(c => { mb++; if(c.checked) b++; });
+        document.querySelectorAll('.bonus-chk').forEach(c => { mbo++; if(c.checked) bo++; });
+        document.querySelectorAll('.secret-chk').forEach(c => { let p = parseInt(c.dataset.points)||1; ms += p; if(c.checked) s += p; });
+        
+        document.getElementById('base-score').innerText = b; document.getElementById('max-base').innerText = mb;
+        document.getElementById('bonus-score').innerText = bo; document.getElementById('max-bonus').innerText = mbo;
+        document.getElementById('secret-score').innerText = s; document.getElementById('max-secret').innerText = ms;
+        document.getElementById('total-score').innerText = b + bo + s; document.getElementById('max-total').innerText = mb + mbo + ms;
+    }
+
+    let timerInterval;
+    document.getElementById('timer-trigger').addEventListener('change', function() {
+        const d = document.getElementById('countdown');
+        if (this.checked) {
+            d.style.display = 'block'; let t = 120;
+            timerInterval = setInterval(() => {
+                let m = Math.floor(t/60), s = t%60;
+                d.innerText = `${m}:${s < 10 ? '0'+s : s}`;
+                if (--t < 0) { clearInterval(timerInterval); alert("Challenge Complete!"); }
+            }, 1000);
+        } else { clearInterval(timerInterval); d.style.display = 'none'; }
+    });
+
+    const nameField = document.getElementById('name-field');
     function updateNameLabels() {
         const name = nameField.value.trim().toUpperCase();
         const labels = document.querySelectorAll('.letter-label');
@@ -390,104 +395,26 @@
             const defaults = ["1st", "2nd", "3rd", "4th"];
             label.innerText = name[i] ? name[i] : defaults[i];
             label.style.color = name[i] ? "var(--primary)" : "#95a5a6";
-            label.style.fontWeight = name[i] ? "bold" : "normal";
         });
     }
+    nameField.addEventListener('input', updateNameLabels);
+    function clearName() { nameField.value = ""; updateNameLabels(); }
 
-    let timerInterval;
-    const timerDisplay = document.getElementById('countdown');
-    const timerTrigger = document.getElementById('timer-trigger');
-    timerTrigger.addEventListener('change', function() {
-        if (this.checked) { startTimer(120); } 
-        else { clearInterval(timerInterval); timerDisplay.style.display = 'none'; }
-    });
-
-    function startTimer(duration) {
-        timerDisplay.style.display = 'block';
-        let timer = duration, min, sec;
-        clearInterval(timerInterval);
-        timerInterval = setInterval(function () {
-            min = parseInt(timer / 60, 10); sec = parseInt(timer % 60, 10);
-            timerDisplay.textContent = (min < 10 ? "0"+min : min) + ":" + (sec < 10 ? "0"+sec : sec);
-            if (--timer < 0) { clearInterval(timerInterval); alert("Challenge Complete!"); }
-        }, 1000);
-    }
-
-    let inputSeq = "";
-    function tap(letter) {
-        inputSeq += letter;
-        if (inputSeq === "BNBN") { unlockSecrets(true); inputSeq = ""; }
-        else if (!"BNBN".startsWith(inputSeq)) { inputSeq = (letter === "B") ? "B" : ""; }
-    }
-
-    function unlockSecrets(isFreshUnlock = false) {
-        secretSection.style.display = 'block'; secretScoreBox.style.display = 'block'; hideBtn.style.display = 'block';
-        localStorage.setItem('unlocked_'+v, 'true'); localStorage.setItem('hidden_'+v, 'false'); 
-        calculateScore();
-        if (isFreshUnlock) {
-            playUnlockSound(); createConfetti(); drawConfetti();
-            setTimeout(() => { secretSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
-        }
-    }
-
-    function hideSecrets() {
-        secretSection.style.display = 'none'; secretScoreBox.style.display = 'none'; hideBtn.style.display = 'none';
-        localStorage.setItem('hidden_'+v, 'true'); calculateScore();
-    }
-
-    function toggleRiddle() { 
-        const isHidden = riddleText.style.display === 'none';
-        riddleText.style.display = isHidden ? 'block' : 'none'; 
-        if(isHidden) {
-            setTimeout(() => { riddleText.scrollIntoView({ behavior: 'smooth' }); }, 100);
-        }
-    }
-
-    function updateLocks() {
-        document.querySelectorAll('.challenge-card').forEach(card => {
-            const root = card.querySelector('.root-trigger'), bonusSection = card.querySelector('.bonus-section');
-            if (root && bonusSection) {
-                if (root.checked) bonusSection.classList.remove('locked');
-                else {
-                    bonusSection.classList.add('locked');
-                    bonusSection.querySelectorAll('input').forEach(cb => { cb.checked = false; localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(cb), 'false'); });
-                }
-            }
-        });
-        const c1 = document.getElementById('cat-1'), c2 = document.getElementById('cat-2'), c3 = document.getElementById('cat-3'), w3 = document.getElementById('cat-3-wrapper');
-        if (c1 && c2 && c1.checked && c2.checked) w3.classList.remove('locked');
-        else if (w3) { w3.classList.add('locked'); c3.checked = false; localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(c3), 'false'); }
-        const g1 = document.getElementById('grad-1'), g2 = document.getElementById('grad-2'), g3 = document.getElementById('grad-3'), w2 = document.getElementById('grad-2-wrapper'), w3g = document.getElementById('grad-3-wrapper');
-        let prog = 0;
-        if (g1 && g1.checked) { w2.classList.remove('locked'); prog = 33.3; } else if (w2) { w2.classList.add('locked'); g2.checked = false; }
-        if (g1 && g1.checked && g2 && g2.checked) { w3g.classList.remove('locked'); prog = 66.6; } else if (w3g) { w3g.classList.add('locked'); g3.checked = false; }
-        if (g1 && g1.checked && g2 && g2.checked && g3 && g3.checked) prog = 100;
-        if (gradBar) gradBar.style.width = prog + "%";
-    }
-
-    function calculateScore() {
-        let b = 0, mb = 0, bo = 0, mbo = 0, s = 0, ms = 0;
-        document.querySelectorAll('.base-chk').forEach(c => { mb += 1; if(c.checked) b += 1; });
-        document.querySelectorAll('.bonus-chk').forEach(c => { mbo += 1; if(c.checked) bo += 1; });
-        if (window.getComputedStyle(secretSection).display === 'block') {
-            document.querySelectorAll('.secret-chk').forEach(c => { let p = parseInt(c.dataset.points) || 1; ms += p; if(c.checked) s += p; });
-        }
-        document.getElementById('base-score').innerText = b; document.getElementById('max-base').innerText = mb;
-        document.getElementById('bonus-score').innerText = bo; document.getElementById('max-bonus').innerText = mbo;
-        document.getElementById('secret-score').innerText = s; document.getElementById('max-secret').innerText = ms;
-        document.getElementById('total-score').innerText = b + bo + s; document.getElementById('max-total').innerText = mb + mbo + ms;
-    }
+    function hideSecrets() { localStorage.removeItem('unlocked_'+v); location.reload(); }
+    function resetScores() { if(confirm("Reset?")) { localStorage.clear(); location.reload(); } }
 
     window.onload = () => {
-        if(localStorage.getItem('unlocked_'+v) === 'true' && localStorage.getItem('hidden_'+v) !== 'true') { unlockSecrets(false); }
+        if(localStorage.getItem('unlocked_'+v) === 'true') unlockSecrets(false);
         if(localStorage.getItem('crawl_name_'+v)) { nameField.value = localStorage.getItem('crawl_name_'+v); updateNameLabels(); }
-        checkboxes.forEach((cb, i) => { if(localStorage.getItem('ch_'+v+'_'+i) === 'true') cb.checked = true; });
+        document.querySelectorAll('.base-chk, .bonus-chk').forEach((cb, i) => {
+            if(localStorage.getItem('ch_'+v+'_'+i) === 'true') cb.checked = true;
+            cb.addEventListener('change', () => { 
+                localStorage.setItem('ch_'+v+'_'+i, cb.checked); 
+                updateLocks(); calculateScore(); 
+            });
+        });
         updateLocks(); calculateScore();
     };
-    checkboxes.forEach((cb, i) => {
-        cb.addEventListener('change', () => { localStorage.setItem('ch_'+v+'_'+i, cb.checked); updateLocks(); calculateScore(); });
-    });
-    function resetScores() { if(confirm("Reset progress?")) { localStorage.clear(); location.reload(); }}
 </script>
 </body>
 </html>

@@ -28,7 +28,7 @@
             user-select: none; 
         }
 
-        /* Stealth Cursors: No 'pointer' hand to hide interactivity */
+        /* Stealth Cursors */
         h1, h2, h3, .challenge-title, span, label, input, .loc-btn, .btn, .clear-btn, .checkbox-item {
             cursor: default !important;
         }
@@ -118,6 +118,15 @@
         .hide-btn { background: var(--secret); color: white; display: none; margin-bottom: 10px; }
 
         .timer-display { font-family: monospace; font-size: 1.4rem; color: var(--primary); font-weight: bold; display: none; margin: 8px 0; }
+
+        .riddle-box {
+            margin-top: 15px;
+            padding: 20px;
+            background: #fff;
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
 
         #confetti-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -301,8 +310,8 @@
         <span onclick="toggleRiddle()" style="font-size: 1.8rem; opacity: 0.6;">📜</span>
         <div id="riddle-text" style="display: none;">
             <div class="riddle-box">
-                <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 15px; text-align: center;">The Royal Pendulum</p>
-                <p style="font-style: italic; color: #636e72; font-size: 1rem; line-height: 1.8; text-align: center;">
+                <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 15px; text-align: center; font-size: 1.1rem;">The Royal Pendulum</p>
+                <p style="font-style: italic; color: #636e72; font-size: 1rem; line-height: 1.8; text-align: center; margin: 0;">
                     Where the coin is kept, the pulse begins,<br>
                     On to the sign where the lemon mallard swims.
                 </p>
@@ -321,7 +330,7 @@
     const nameField = document.getElementById('name-field');
     const canvas = document.getElementById('confetti-canvas');
     const ctx = canvas.getContext('2d');
-    const v = "v53"; 
+    const v = "v54"; 
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playUnlockSound() {
@@ -423,7 +432,11 @@
         localStorage.setItem('hidden_'+v, 'true'); calculateScore();
     }
 
-    function toggleRiddle() { riddleText.style.display = (riddleText.style.display === 'none') ? 'block' : 'none'; }
+    function toggleRiddle() { 
+        const isHidden = riddleText.style.display === 'none';
+        riddleText.style.display = isHidden ? 'block' : 'none'; 
+        if(isHidden) riddleText.scrollIntoView({ behavior: 'smooth' });
+    }
 
     function updateLocks() {
         document.querySelectorAll('.challenge-card').forEach(card => {

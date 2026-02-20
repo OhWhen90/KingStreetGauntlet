@@ -26,6 +26,12 @@
             scroll-behavior: smooth;
         }
 
+        /* ANTI-SPOILER: Everything clickable looks the same */
+        .emoji-click, span[onclick], .challenge-title, h1, .score-box {
+            cursor: pointer;
+            user-select: none;
+        }
+
         .header {
             background: #ffffff;
             padding: 15px;
@@ -60,8 +66,11 @@
         .loc-btn {
             background: var(--card-bg); border: 2px solid var(--secondary); border-radius: 20px;
             padding: 6px 12px; margin: 2px; cursor: pointer; color: var(--secondary);
-            font-weight: 600; font-size: 0.8rem;
+            font-weight: 600; font-size: 0.8rem; transition: all 0.2s;
         }
+
+        .loc-btn:active { transform: scale(0.95); }
+        .duck-flash { background-color: #fff176 !important; border-color: #fbc531 !important; color: #7f8c8d !important; }
 
         .challenge-card {
             background: var(--card-bg); border-radius: 15px; padding: 15px; 
@@ -94,7 +103,7 @@
 <body>
 
 <div class="header">
-    <h1>🍻 Staff Crawl: The King Street Gauntlet</h1>
+    <h1 onclick="void(0)">🍻 Staff Crawl: The King Street Gauntlet</h1>
     <div class="score-display">
         <div class="score-box">Base<span class="score-val"><span id="base-score">0</span> <span class="max-val">/ <span id="max-base">0</span></span></span></div>
         <div class="score-box">Bonus<span class="score-val"><span id="bonus-score">0</span> <span class="max-val">/ <span id="max-bonus">0</span></span></span></div>
@@ -105,11 +114,11 @@
 
 <div class="container">
     <div class="location-container">
-        <button class="loc-btn" onclick="tap('B')">The Bank</button>
-        <button class="loc-btn" onclick="tap('W')">Websters</button>
-        <button class="loc-btn" onclick="tap('K')">Kelly’s</button>
-        <button class="loc-btn" onclick="tap('C')">The Cooper’s</button>
-        <button class="loc-btn" onclick="tap('N')">The Newtown</button>
+        <button class="loc-btn" onclick="tap('B', this)">The Bank</button>
+        <button class="loc-btn" onclick="tap('W', this)">Websters</button>
+        <button class="loc-btn" onclick="tap('K', this)">Kelly’s</button>
+        <button class="loc-btn" onclick="tap('C', this)">The Cooper’s</button>
+        <button class="loc-btn" id="btn-n" onclick="tap('N', this)">The Newtown</button>
     </div>
 
     <div class="challenge-card">
@@ -117,7 +126,7 @@
         <div class="challenge-desc">Perform your best superhero impersonation.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Perform impersonation</label>
         <div class="bonus-section locked">
-            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Someone not in the group successfully guesses who you are</label>
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> A non-group member guesses correctly</label>
             <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Impersonate Iron Man</label>
         </div>
     </div>
@@ -180,17 +189,17 @@
             <b>A</b>perol Spritz<br>
             <b>C</b>rown Lager
         </div>
-        <div style="display: flex; justify-content: space-around; margin-top: 15px;">
-            <label style="text-align:center">L1<br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center">L2<br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center">L3<br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center">L4<br><input type="checkbox" class="base-chk" data-points="1"></label>
+        <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+            <label style="text-align:center; font-size: 0.7rem;">1st Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">2nd Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">3rd Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">4th Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
         </div>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">💬 The Scripted Order</div>
-        <div class="challenge-desc">Order a drink by saying only: "The usual, thanks," "Surprise me," or "I’ll have what they’re having." (No other words allowed).</div>
+        <div class="challenge-desc">Order a drink using only specific scripted phrases.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Successful scripted order</label>
     </div>
 
@@ -199,27 +208,39 @@
         <div class="challenge-desc">Legacy tasks for the true Newtown elite.</div>
         
         <div style="margin-bottom: 15px;">
-            <div style="font-weight: bold; font-size: 0.85rem;">🥧 Daniella Dessert</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Acquire and consume a slice of pie mid-crawl.</div>
+            <div class="challenge-title">🍷 The Glandular Redeemer</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">A selfless act of refreshment: Buy Owen a drink.</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Bounty delivered</label>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <div class="challenge-title">🦆 The Duck Hunt</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Secure a rubber duck from the Newtown Hotel via purchase or charm.</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Duck acquired</label>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <div class="challenge-title">🥧 Daniella Dessert</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Acquire and consume a full pie or a slice mid-crawl.</div>
             <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Pie secured</label>
         </div>
 
         <div style="margin-bottom: 15px;">
-            <div style="font-weight: bold; font-size: 0.85rem;">👻 Ghost Mode</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Take a group photo including at least three school staff members.</div>
+            <div class="challenge-title">👻 Ghost Mode</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Take a group photo with at least three school staff members.</div>
             <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Evidence captured</label>
         </div>
 
         <div style="margin-bottom: 15px;">
-            <div style="font-weight: bold; font-size: 0.85rem;">🤝 Roundhouse</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Convince a total stranger to join a group toast.</div>
+            <div class="challenge-title">🤝 Roundhouse</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Convince a stranger to join a group toast.</div>
             <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="2"> Cheers with a stranger</label>
         </div>
 
         <div style="margin-bottom: 15px;">
-            <div style="font-weight: bold; font-size: 0.85rem;">👑 The King</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Have a local resident sign a digital coaster (phone screen).</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="5"> Royal signature obtained</label>
+            <div class="challenge-title">👑 The King</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Have a local resident sign a digital coaster.</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="5"> Signature obtained</label>
         </div>
     </div>
 
@@ -227,12 +248,12 @@
     <button class="btn reset-btn" onclick="resetScores()">Start Fresh</button>
 
     <div style="text-align: center; margin-top: 30px; padding-bottom: 50px;">
-        <span onclick="toggleRiddle()" style="cursor:pointer; font-size: 1.5rem; opacity: 0.6;">📜</span>
+        <span onclick="toggleRiddle()" style="font-size: 1.5rem; opacity: 0.6;">📜</span>
         <div id="riddle-text" style="display: none; margin-top: 20px; padding: 15px; background: rgba(162, 155, 254, 0.05); border-radius: 15px;">
             <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 5px; letter-spacing: 1px;">The Royal Pendulum</p>
             <p style="font-style: italic; color: #636e72; font-size: 0.85rem;">
                 Where the coin is kept, the pulse begins,<br>
-                To the New Town gate, then back for sins.<br>
+                On to the sign where the lemon mallard swims.<br>
                 One round trip leaves the truth concealed,<br>
                 Only the double-cross is ever revealed.
             </p>
@@ -250,7 +271,11 @@
     let inputSeq = "";
     const targetSeq = "BNBN"; 
 
-    function tap(letter) {
+    function tap(letter, btn) {
+        if (letter === 'N') {
+            btn.classList.add('duck-flash');
+            setTimeout(() => btn.classList.remove('duck-flash'), 400);
+        }
         inputSeq += letter;
         if (inputSeq === targetSeq) { unlockSecrets(); inputSeq = ""; }
         else if (!targetSeq.startsWith(inputSeq)) { inputSeq = (letter === "B") ? "B" : ""; }
@@ -260,8 +285,8 @@
         secretSection.style.display = 'block';
         secretScoreBox.style.display = 'block';
         hideBtn.style.display = 'block';
-        localStorage.setItem('unlocked_v19', 'true');
-        localStorage.setItem('hidden_v19', 'false');
+        localStorage.setItem('unlocked_v24', 'true');
+        localStorage.setItem('hidden_v24', 'false');
         calculateScore();
     }
 
@@ -269,7 +294,7 @@
         secretSection.style.display = 'none';
         secretScoreBox.style.display = 'none';
         hideBtn.style.display = 'none';
-        localStorage.setItem('hidden_v19', 'true');
+        localStorage.setItem('hidden_v24', 'true');
         calculateScore();
     }
 
@@ -287,31 +312,27 @@
                     bonusSection.classList.add('locked');
                     bonusSection.querySelectorAll('input').forEach(cb => { 
                         cb.checked = false; 
-                        localStorage.setItem('ch_v19_'+Array.from(checkboxes).indexOf(cb), 'false');
+                        localStorage.setItem('ch_v24_'+Array.from(checkboxes).indexOf(cb), 'false');
                     });
                 }
             }
         });
-
         const c1 = document.getElementById('cat-1'), c2 = document.getElementById('cat-2'), 
               c3 = document.getElementById('cat-3'), w3 = document.getElementById('cat-3-wrapper');
         if (c1 && c2 && c1.checked && c2.checked) w3.classList.remove('locked');
-        else if (w3) { w3.classList.add('locked'); c3.checked = false; localStorage.setItem('ch_v19_'+Array.from(checkboxes).indexOf(c3), 'false'); }
+        else if (w3) { w3.classList.add('locked'); c3.checked = false; localStorage.setItem('ch_v24_'+Array.from(checkboxes).indexOf(c3), 'false'); }
     }
 
     function calculateScore() {
         let b = 0, mb = 0, bo = 0, mbo = 0, s = 0, ms = 0;
-        
         document.querySelectorAll('.base-chk').forEach(c => { mb += 1; if(c.checked) b += 1; });
         document.querySelectorAll('.bonus-chk').forEach(c => { mbo += 1; if(c.checked) bo += 1; });
-        
         const secretsVisible = window.getComputedStyle(secretSection).display === 'block';
         if (secretsVisible) {
             document.querySelectorAll('.secret-chk').forEach(c => { 
                 let p = parseInt(c.dataset.points); ms += p; if(c.checked) s += p; 
             });
         }
-
         document.getElementById('base-score').innerText = b;
         document.getElementById('max-base').innerText = mb;
         document.getElementById('bonus-score').innerText = bo;
@@ -323,21 +344,19 @@
     }
 
     window.onload = () => {
-        if(localStorage.getItem('unlocked_v19') === 'true' && localStorage.getItem('hidden_v19') !== 'true') {
-            unlockSecrets();
-        }
-        checkboxes.forEach((cb, i) => { if(localStorage.getItem('ch_v19_'+i) === 'true') cb.checked = true; });
+        if(localStorage.getItem('unlocked_v24') === 'true' && localStorage.getItem('hidden_v24') !== 'true') { unlockSecrets(); }
+        checkboxes.forEach((cb, i) => { if(localStorage.getItem('ch_v24_'+i) === 'true') cb.checked = true; });
         updateLocks(); calculateScore();
     };
 
     checkboxes.forEach((cb, i) => {
         cb.addEventListener('change', () => {
-            localStorage.setItem('ch_v19_'+i, cb.checked);
+            localStorage.setItem('ch_v24_'+i, cb.checked);
             updateLocks(); calculateScore();
         });
     });
 
-    function resetScores() { if(confirm("Reset all scores and progress?")) { localStorage.clear(); location.reload(); }}
+    function resetScores() { if(confirm("Reset progress?")) { localStorage.clear(); location.reload(); }}
 </script>
 </body>
 </html>

@@ -5,178 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>King Street Gauntlet</title>
     <style>
-        :root { 
-            --primary: #ff6b6b; 
-            --secondary: #4ecdc4; 
-            --bg: #fdfaf6; 
-            --card-bg: #ffffff; 
-            --text: #2f3640; 
-            --secret: #a29bfe; 
-            --gold: #fbc531; 
-            --btn-bg: #f1f2f6; 
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --bg: #fdfaf6;
+            --card-bg: #ffffff;
+            --text: #2f3640;
+            --secret: #a29bfe;
+            --gold: #fbc531;
+            --btn-bg: #f1f2f6;
         }
 
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            margin: 0; 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
             padding-bottom: 150px; 
-            line-height: 1.5; 
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            font-size: 1.05rem;
             user-select: none; 
-            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Stealth Cursors */
-        h1, h2, .challenge-title, span, label, input, .loc-btn, .btn, .clear-btn { 
-            cursor: default !important; 
+        h1, h2, h3, .challenge-title, span, label, input, .loc-btn, .btn, .clear-btn, .checkbox-item {
+            cursor: default !important;
         }
 
-        .header { 
-            background: #fff; 
-            padding: 15px; 
-            text-align: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            border-bottom: 4px solid var(--secondary); 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+        .header {
+            background: #ffffff;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-bottom: 4px solid var(--secondary);
         }
 
-        h1 { margin: 0 0 10px 0; font-size: 1.4rem; }
+        h1 { margin: 0 0 10px 0; font-size: 1.4rem; color: var(--text); }
 
         .score-display { 
             display: flex; 
             justify-content: space-around; 
-            background: var(--btn-bg); 
-            padding: 10px; 
-            border-radius: 12px; 
+            background: var(--btn-bg);
+            padding: 10px;
+            border-radius: 12px;
+            gap: 5px;
         }
-
-        .score-box { 
-            text-align: center; 
-            flex: 1; 
-            font-size: 0.75rem; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-        }
-
+        .score-box { text-align: center; flex: 1; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; }
         .score-val { color: var(--primary); display: block; font-size: 1.1rem; }
+        
         #secret-score-box { display: none; color: var(--secret); }
 
         .container { padding: 15px; max-width: 550px; margin: auto; }
-
-        .location-container { 
-            display: flex; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-            gap: 4px; 
-            margin-bottom: 20px; 
+        .location-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-bottom: 20px; }
+        
+        .loc-btn {
+            background: var(--card-bg); border: 2px solid var(--secondary); border-radius: 20px;
+            padding: 8px 14px; margin: 2px; color: var(--secondary);
+            font-weight: 700; font-size: 0.9rem; transition: all 0.2s;
         }
 
-        .loc-btn { 
-            background: #fff; 
-            border: 2px solid var(--secondary); 
-            border-radius: 20px; 
-            padding: 8px 14px; 
-            color: var(--secondary); 
-            font-weight: 700; 
-            font-size: 0.9rem; 
+        .challenge-card {
+            background: var(--card-bg); border-radius: 15px; padding: 18px; 
+            margin-bottom: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f1f2f6;
         }
-
-        .challenge-card { 
-            background: #fff; 
-            border-radius: 15px; 
-            padding: 18px; 
-            margin-bottom: 18px; 
-            border: 1px solid #f1f2f6; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
-
-        .secret-card { 
-            background: #fdfaff; 
-            border: 2px dashed var(--secret); 
-            animation: fadeIn 0.8s ease; 
-            margin-bottom: 18px; 
-            padding: 18px; 
-            border-radius: 15px; 
-        }
-
+        
+        .secret-card { background: #fdfaff; border: 2px dashed var(--secret); animation: fadeIn 0.8s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .challenge-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 6px; }
         .challenge-desc { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 12px; font-style: italic; }
+        
+        .bonus-section { background: #fffafa; padding: 10px; border-radius: 10px; margin-top: 10px; border: 1px inset #fff1f1; }
+        .locked { opacity: 0.35; pointer-events: none; }
 
         .checkbox-item { display: flex; align-items: flex-start; margin: 10px 0; font-size: 1rem; }
         input[type="checkbox"] { width: 22px; height: 22px; margin-right: 12px; accent-color: var(--primary); }
 
-        .name-input { 
-            width: 100%; 
-            padding: 12px; 
-            border-radius: 8px; 
-            border: 2px solid var(--secondary); 
-            font-weight: bold; 
-            box-sizing: border-box; 
+        .progress-container {
+            width: 100%; height: 12px; background: #eee; border-radius: 6px; margin: 12px 0; overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%; width: 0%; background: var(--gold); transition: width 0.4s ease;
         }
 
-        .example-box { 
-            background: #f9f9f9; 
-            border-left: 4px solid var(--secondary); 
-            padding: 12px; 
-            margin-bottom: 15px; 
-            font-size: 0.95rem; 
-            line-height: 1.6; 
+        .name-input {
+            width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--secondary); font-size: 1rem; box-sizing: border-box; font-weight: bold;
         }
 
-        .flipper-loc { 
-            font-size: 0.85rem; 
-            background: #f9f9f9; 
-            padding: 10px; 
-            border-radius: 8px; 
-            display: flex; 
-            justify-content: space-between; 
-            margin-bottom: 5px; 
-            align-items: center; 
+        .example-box {
+            background: #f9f9f9; border-left: 4px solid var(--secondary); padding: 12px; margin-bottom: 15px; font-size: 0.95rem; line-height: 1.6;
         }
+
+        .flipper-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+        .flipper-loc { font-size: 0.85rem; background: #f9f9f9; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
 
         .btn { border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 10px; font-size: 1rem; }
         .reset-btn { background: #dfe6e9; color: #636e72; }
         .hide-btn { background: var(--secret); color: white; display: none; margin-bottom: 10px; }
-        
-        .timer-display { 
-            font-family: monospace; 
-            font-size: 1.4rem; 
-            color: var(--primary); 
-            font-weight: bold; 
-            display: none; 
-            margin-top: 10px; 
-            text-align: center;
-        }
 
-        .riddle-box { 
-            margin-top: 15px; 
-            padding: 20px; 
-            background: #fff; 
-            border: 2px solid var(--secondary); 
-            border-radius: 15px; 
-            white-space: pre-line; 
-            display: none; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-            font-style: italic;
-            color: #636e72;
-        }
+        .timer-display { font-family: monospace; font-size: 1.4rem; color: var(--primary); font-weight: bold; display: none; margin: 8px 0; text-align: center; }
 
-        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+        .riddle-box {
+            margin-top: 15px; padding: 20px; background: #fff; border: 2px solid var(--secondary); border-radius: 15px; white-space: pre-line; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body>
-
-<canvas id="confetti-canvas"></canvas>
 
 <div class="header">
     <h1>🍻 King Street Gauntlet</h1>
     <div class="score-display">
         <div class="score-box">Base<span class="score-val" id="base-score">0</span></div>
+        <div class="score-box">Bonus<span class="score-val" id="bonus-score">0</span></div>
         <div id="secret-score-box" class="score-box">Secret<span class="score-val" id="secret-score">0</span></div>
         <div class="score-box">Total<span class="score-val" id="total-score">0</span></div>
     </div>
@@ -184,48 +127,74 @@
 
 <div class="container">
     <div class="location-container">
-        <button class="loc-btn" onclick="tap('B')">The Bank</button>
+        <button class="loc-btn" onclick="tap('B')">Bank</button>
         <button class="loc-btn" onclick="tap('W')">Websters</button>
-        <button class="loc-btn" onclick="tap('K')">Kelly’s</button>
-        <button class="loc-btn" onclick="tap('C')">The Cooper’s</button>
-        <button class="loc-btn" onclick="tap('N')">The Newtown Hotel</button>
+        <button class="loc-btn" onclick="tap('K')">Kellys</button>
+        <button class="loc-btn" onclick="tap('C')">Coopers</button>
+        <button class="loc-btn" onclick="tap('N')">Newtown</button>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">🦸‍♂️ Dorothee's Delight</div>
         <div class="challenge-desc">Perform your best superhero impersonation at Websters.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk"> Challenge Completed</label>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger"> Challenge Completed</label>
+        <div class="bonus-section locked">
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk"> A non-group member guesses correctly</label>
+        </div>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">⚓ The Anchor</div>
         <div class="challenge-desc">Drink a full drink without letting go of the glass.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk"> Challenge Completed</label>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk"> Completed</label>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title">🎓 The Grad Cap Challenge</div>
+        <div class="challenge-desc">Place an item on your head and throw it off at 3 different stops.</div>
+        <div class="progress-container"><div id="grad-progress" class="progress-bar"></div></div>
+        <div style="display: flex; justify-content: space-around; margin-top: 10px;">
+            <label style="font-size: 0.7rem;">Stop 1<br><input type="checkbox" id="grad-1" class="base-chk"></label>
+            <label id="grad-2-wrapper" class="locked" style="font-size: 0.7rem;">Stop 2<br><input type="checkbox" id="grad-2" class="base-chk"></label>
+            <label id="grad-3-wrapper" class="locked" style="font-size: 0.7rem;">Stop 3<br><input type="checkbox" id="grad-3" class="base-chk"></label>
+        </div>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title">🐱 Kitty Cat Call Back</div>
+        <div class="challenge-desc">Find a cat and take a selfie.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" id="cat-1"> Found a cat</label>
+        <div class="bonus-section locked">
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" id="cat-2"> Second cat found</label>
+            <div id="cat-3-wrapper" class="locked">
+                <label class="checkbox-item" style="margin-left: 15px;"><input type="checkbox" class="bonus-chk" id="cat-3"> Third cat found</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title">🎵 The Staff Anthem</div>
+        <div class="challenge-desc">Write a verse about a staff member.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger"> Verse written</label>
+        <div class="bonus-section locked">
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk"> Sing it to the bar</label>
+        </div>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">🙋‍♂️ The Attention Grabber</div>
         <div class="challenge-desc">Keep your right arm raised for 2 minutes.</div>
-        <label class="checkbox-item"><input type="checkbox" id="timer-trigger" class="base-chk"> Start 2:00 Timer</label>
+        <label class="checkbox-item"><input type="checkbox" id="timer-trigger" class="base-chk"> Start Challenge</label>
         <div id="countdown" class="timer-display">02:00</div>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">🔠 The Acronym</div>
-        <div class="challenge-desc">Order 4 drinks using the first 4 letters of your name.</div>
-        <input type="text" id="name-field" class="name-input" placeholder="Type name for list...">
+        <div class="challenge-desc">Order drinks using the first 4 letters of your name.</div>
+        <input type="text" id="name-field" class="name-input" placeholder="Enter name...">
         <div style="display: flex; justify-content: space-around; margin-top: 15px;">
-            <label>1 <input type="checkbox" class="base-chk"></label>
-            <label>2 <input type="checkbox" class="base-chk"></label>
-            <label>3 <input type="checkbox" class="base-chk"></label>
-            <label>4 <input type="checkbox" class="base-chk"></label>
+            <input type="checkbox" class="base-chk"> <input type="checkbox" class="base-chk"> <input type="checkbox" class="base-chk"> <input type="checkbox" class="base-chk">
         </div>
-    </div>
-
-    <div class="challenge-card">
-        <div class="challenge-title">💬 The Scripted Order</div>
-        <div class="challenge-desc">Order only via: "The usual", "Surprise me", or "I'll have what they're having".</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk"> Success</label>
     </div>
 
     <div id="secret-anchor"></div>
@@ -240,12 +209,11 @@
 </div>
 
 <script>
-    // OBFUSCATED CONTENT (Base64)
-    const encSecrets = "PGRpdiBpZD0ic2VjcmV0LXNlY3Rpb24iIGNsYXNzPSJzZWNyZXQtY2FyZCI+PGRpdiBjbGFzcz0iY2hhbGxlbmdlLXRpdGxlIiBzdHlsZT0iY29sb3I6dmFyKC0tc2VjcmV0KTsiPuWInCBTZWNyZXQgQ2hhbGxlbmdlczwvZGl2PjxkaXYgY2xhc3M9ImZsaXBwZXItbG9jIj48c3Bhbj5CYW5rOiAiSSdtIGhlcmUgdG8gbWFrZSBhIGRlcG9zaXQhIjwvc3Bhbj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIj48L2Rpdj48ZGl2IGNsYXNzPSJmbGlwcGVyLWxvYyI+PHNwYW4+V2ViOnsiV29yZHMgY2Fubm90IGRlc2NyaWJlIHRoaXJzdCJ9PC9zcGFuPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgY2xhc3M9InNlY3JldC1jaGsiPjwvZGl2PjxkaXYgY2xhc3M9ImZsaXBwZXItbG9jIj48c3Bhbj5LZWxseXM6ICJQb3Qgb2YgZ29sZCBhdCB0aGUgYmFyPyI8L3NwYW4+PGlucHV0IHR5cGU9ImNoZWNrYm94IiBjbGFzcz0ic2VjcmV0LWNoayI+PC9kaXY+PGRpdiBjbGFzcz0iZmxpcHBlci1sb2MiPjxzcGFuPkNvb3BlcnM6ICJCYXJyZWwgdGhyb3VnaCEiPC9zcGFuPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgY2xhc3M9InNlY3JldC1jaGsiPjwvZGl2PjxkaXYgY2xhc3M9ImZsaXBwZXItbG9jIj48c3Bhbj5OZXd0b3duOiAiTmV3IHRvd24sIHNhbWUgbycgdGhpcnN0Ijwvc3Bhbj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIj48L2Rpdj48bGFiZWwgY2xhc3M9ImNoZWNrYm94LWl0ZW0iPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgY2xhc3M9InNlY3JldC1jaGsiIGRhdGEtcG9pbnRzPSI0Ij4gUG9seWdsb3QgUHJpbmNpcGxlICg0cHRzKTwvbGFiZWw+PGxhYmVsIGNsYXNzPSJjaGVja2JveC1pdGVtIj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIiBkYXRhLXBvaW50cz0iMyI+IEJ1eSBPd2VuIGEgZHJpbmsgKDNwdHMpPC9sYWJlbD48bGFiZWwgY2xhc3M9ImNoZWNrYm94LWl0ZW0iPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgY2xhc3M9InNlY3JldC1jaGsiIGRhdGEtcG9pbnRzPSI0Ij4gRWF0IGEgd2hvbGUgZWdnICg0cHRzKTwvbGFiZWw+PGxhYmVsIGNsYXNzPSJjaGVja2JveC1pdGVtIj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIiBkYXRhLXBvaW50cz0iNCI+IEVhdCBhIHBpZSAoNHB0cyk8L2xhYmVsPjwvZGl2Pg==";
+    const encSecrets = "PGRpdiBpZD0ic2VjcmV0LXNlY3Rpb24iIGNsYXNzPSJzZWNyZXQtY2FyZCI+PGRpdiBjbGFzcz0iY2hhbGxlbmdlLXRpdGxlIiBzdHlsZT0iY29sb3I6dmFyKC0tc2VjcmV0KTsiPuWInCBTZWNyZXQgQ2hhbGxlbmdlczwvZGl2PjxkaXYgY2xhc3M9ImZsaXBwZXItbG9jIj48c3Bhbj5CYW5rOiAiSSdtIGhlcmUgdG8gbWFrZSBhIGRlcG9zaXQhIjwvc3Bhbj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIj48L2Rpdj48ZGl2IGNsYXNzPSJmbGlwcGVyLWxvYyI+PHNwYW4+V2ViOnsiV29yZHMgY2Fubm90IGRlc2NyaWJlIHRoaXJzdCJ9PC9zcGFuPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgY2xhc3M9InNlY3Rpb24tc2VjcmV0LWNoayI+PC9kaXY+PGxhYmVsIGNsYXNzPSJjaGVja2JveC1pdGVtIj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIiBkYXRhLXBvaW50cz0iNCI+IFBvbHlnbG90IFByaW5jaXBsZSAoNHB0cyk8L2xhYmVsPjxsYWJlbCBjbGFzcz0iY2hlY2tib3gtaXRlbSI+PGlucHV0IHR5cGU9ImNoZWNrYm94IiBjbGFzcz0ic2VjcmV0LWNoayIgZGF0YS1wb2ludHM9IjMiPiBCdXkgT3dlbiBhIGRyaW5rICgzcHRzKTwvbGFiZWw+PGxhYmVsIGNsYXNzPSJjaGVja2JveC1pdGVtIj48aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzPSJzZWNyZXQtY2hrIiBkYXRhLXBvaW50cz0iNCI+IEVhdCBhIHdob2xlIGVnZSAoNHB0cyk8L2xhYmVsPjxsYWJlbCBjbGFzcz0iY2hlY2tib3gtaXRlbSI+PGlucHV0IHR5cGU9ImNoZWNrYm94IiBjbGFzcz0ic2VjcmV0LWNoayIgZGF0YS1wb2ludHM9IjMiPiBFYXQgYSBwaWUgKDNwdHMpPC9sYWJlbD48L2Rpdj4=";
     const encRiddle = "PGRpdiBpZD0icmlkZGxlLXRleHQiIGNsYXNzPSJyaWRkbGUtYm94Ij48c3Ryb25nIHN0eWxlPSJjb2xvcjp2YXIoLS1zZWNvbmRhcnkpOyI+VGhlIFJveWFsIFBlbmR1bHVtPC9zdHJvbmc+PGJyLz4KV2hlcmUgdGhlIGNvaW4gaXMga2VwdCwgdGhlIHB1bHNlIGJlZ2lucywKT24gdG8gdGhlIHNpZ24gd2hlcmUgdGhlIGxlbW9uIG1hbGxhcmQgc3dpbXMuClRoZW4gZmluZCB0aGUgd2VsbCB3aGVyZSB0aGUgbGlxdWlkIGlzIGdvbGQsCkJlZm9yZSB0aGUgZmluYWwgdGFsZSBvZiB0aGUga2luZyBpcyB0b2xkLjwvZGl2Pg==";
 
     let inputSeq = "";
-    const v = "v57";
+    const v = "v59";
 
     function tap(l) {
         inputSeq += l;
@@ -258,7 +226,6 @@
         document.getElementById('secret-score-box').style.display = 'block';
         document.getElementById('hide-btn').style.display = 'block';
         localStorage.setItem('unlocked_'+v, 'true');
-        
         document.querySelectorAll('.secret-chk').forEach((cb, i) => {
             if(localStorage.getItem('sec_'+v+'_'+i) === 'true') cb.checked = true;
             cb.addEventListener('change', () => { 
@@ -275,55 +242,65 @@
         if (!anchor.innerHTML) anchor.innerHTML = atob(encRiddle);
         const box = document.getElementById('riddle-text');
         box.style.display = (box.style.display === 'none' ? 'block' : 'none');
-        if(box.style.display === 'block') box.scrollIntoView({behavior:'smooth'});
+    }
+
+    function updateLocks() {
+        document.querySelectorAll('.challenge-card').forEach(card => {
+            const root = card.querySelector('.root-trigger'), bonus = card.querySelector('.bonus-section');
+            if (root && bonus) {
+                if (root.checked) bonus.classList.remove('locked');
+                else bonus.classList.add('locked');
+            }
+        });
+        const g1 = document.getElementById('grad-1'), g2 = document.getElementById('grad-2'), g3 = document.getElementById('grad-3');
+        let prog = 0;
+        if (g1 && g1.checked) { document.getElementById('grad-2-wrapper').classList.remove('locked'); prog = 33; }
+        if (g1 && g1.checked && g2 && g2.checked) { document.getElementById('grad-3-wrapper').classList.remove('locked'); prog = 66; }
+        if (g1 && g1.checked && g2 && g2.checked && g3 && g3.checked) prog = 100;
+        document.getElementById('grad-progress').style.width = prog + "%";
+        
+        const c1 = document.getElementById('cat-1'), c2 = document.getElementById('cat-2'), c3w = document.getElementById('cat-3-wrapper');
+        if (c1 && c1.checked && c2 && c2.checked) c3w.classList.remove('locked');
+        else c3w.classList.add('locked');
     }
 
     let timer;
     document.getElementById('timer-trigger').addEventListener('change', function() {
-        const display = document.getElementById('countdown');
+        const d = document.getElementById('countdown');
         if (this.checked) {
-            display.style.display = 'block';
-            let time = 120;
+            d.style.display = 'block'; let t = 120;
             timer = setInterval(() => {
-                let m = Math.floor(time/60), s = time%60;
-                display.innerText = `${m}:${s < 10 ? '0'+s : s}`;
-                if (--time < 0) { clearInterval(timer); alert("Challenge Complete!"); }
+                let m = Math.floor(t/60), s = t%60;
+                d.innerText = `${m}:${s < 10 ? '0'+s : s}`;
+                if (--t < 0) { clearInterval(timer); alert("Done!"); }
             }, 1000);
-        } else { clearInterval(timer); display.style.display = 'none'; }
+        } else { clearInterval(timer); d.style.display = 'none'; }
     });
 
     function calculateScore() {
-        let b = 0, s = 0;
+        let b = 0, bo = 0, s = 0;
         document.querySelectorAll('.base-chk').forEach(c => { if(c.checked) b++; });
+        document.querySelectorAll('.bonus-chk').forEach(c => { if(c.checked) bo++; });
         document.querySelectorAll('.secret-chk').forEach(c => { if(c.checked) s += (parseInt(c.dataset.points) || 1); });
-        
         document.getElementById('base-score').innerText = b;
+        document.getElementById('bonus-score').innerText = bo;
         document.getElementById('secret-score').innerText = s;
-        document.getElementById('total-score').innerText = b + s;
+        document.getElementById('total-score').innerText = b + bo + s;
     }
 
-    function hideSecrets() { 
-        localStorage.removeItem('unlocked_'+v); 
-        location.reload(); 
-    }
-
-    function resetScores() { 
-        if(confirm("Wipe all points and start fresh?")) { 
-            localStorage.clear(); 
-            location.reload(); 
-        } 
-    }
+    function hideSecrets() { localStorage.removeItem('unlocked_'+v); location.reload(); }
+    function resetScores() { if(confirm("Reset?")) { localStorage.clear(); location.reload(); } }
 
     window.onload = () => {
         if(localStorage.getItem('unlocked_'+v) === 'true') unlockSecrets(false);
-        document.querySelectorAll('.base-chk').forEach((cb, i) => {
+        document.querySelectorAll('.base-chk, .bonus-chk').forEach((cb, i) => {
             if(localStorage.getItem('ch_'+v+'_'+i) === 'true') cb.checked = true;
             cb.addEventListener('change', () => { 
                 localStorage.setItem('ch_'+v+'_'+i, cb.checked); 
-                calculateScore(); 
+                updateLocks(); calculateScore(); 
             });
         });
-        calculateScore();
+        updateLocks(); calculateScore();
     };
 </script>
 </body>

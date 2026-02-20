@@ -120,18 +120,6 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">📣 The Public Embarrassment Tour</div>
-        <div class="challenge-desc">Announce your arrival at each venue with the required catchphrase.</div>
-        <div class="flipper-grid">
-            <div class="flipper-loc"><span>The Bank: "I'm here to make a deposit!"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
-            <div class="flipper-loc"><span>Websters: "Words cannot describe this thirst!"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
-            <div class="flipper-loc"><span>Kelly’s: "Is there a pot of gold at this bar?"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
-            <div class="flipper-loc"><span>The Cooper’s: "I’ve come to barrel through!"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
-            <div class="flipper-loc"><span>The Newtown: "New town, same old thirst!"</span> <input type="checkbox" class="base-chk" data-points="1"></div>
-        </div>
-    </div>
-
-    <div class="challenge-card">
         <div class="challenge-title">🦸‍♂️ Dorothee's Delight (WEBSTERS ONLY)</div>
         <div class="challenge-desc">Perform your best superhero impersonation.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Perform impersonation</label>
@@ -139,6 +127,12 @@
             <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> A non-group member guesses correctly</label>
             <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Impersonate Iron Man</label>
         </div>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title">⚓ The Anchor</div>
+        <div class="challenge-desc">Drink a full drink without letting go of the glass (No shots).</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Drink completed without letting go</label>
     </div>
 
     <div class="challenge-card">
@@ -164,6 +158,15 @@
     </div>
 
     <div class="challenge-card">
+        <div class="challenge-title">🎵 The Staff Anthem</div>
+        <div class="challenge-desc">Write a new verse of the school song about any current staff member.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Verse written</label>
+        <div class="bonus-section locked">
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Sing it to the bar</label>
+        </div>
+    </div>
+
+    <div class="challenge-card">
         <div class="challenge-title">🍺 The Coaster Flip</div>
         <div class="challenge-desc">1 point for each successful coaster flip per location.</div>
         <div class="flipper-grid">
@@ -176,8 +179,24 @@
     </div>
 
     <div class="challenge-card">
+        <div class="challenge-title">🙋‍♂️ The Attention Grabber</div>
+        <div class="challenge-desc">Keep your right arm raised straight up for 5 minutes.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Arm raised for 5 minutes</label>
+        <div class="bonus-section locked">
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> You cannot speak while your arm is up</label>
+        </div>
+    </div>
+
+    <div class="challenge-card">
         <div class="challenge-title">🔠 The Acronym</div>
         <div class="challenge-desc">Order <b>four</b> drinks starting with the first <b>four</b> letters of your name.</div>
+        <div style="font-size: 0.75rem; color: #95a5a6; margin-bottom: 5px;">Example (using the name TRACEY):</div>
+        <div class="acrostic">
+            <b>T</b>equila Sunrise<br>
+            <b>R</b>ibena<br>
+            <b>A</b>perol Spritz<br>
+            <b>C</b>rown Lager
+        </div>
         <div style="display: flex; justify-content: space-between; margin-top: 15px;">
             <label style="text-align:center; font-size: 0.7rem;">1st Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
             <label style="text-align:center; font-size: 0.7rem;">2nd Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
@@ -186,10 +205,28 @@
         </div>
     </div>
 
+    <div class="challenge-card">
+        <div class="challenge-title">💬 The Scripted Order</div>
+        <div class="challenge-desc">Order a drink using only specific scripted phrases.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Successful scripted order</label>
+    </div>
+
     <div id="secret-section" class="challenge-card secret-card">
         <div class="challenge-title" style="color: var(--secret);">🕵️ Extra Secrets</div>
-        <div class="challenge-desc">Legacy tasks for the true Newtown elite.</div>
+        <div class="challenge-desc">Special requirements for those who know where to tap.</div>
         
+        <div style="margin-bottom: 20px;">
+            <div class="challenge-title">📣 The Public Embarrassment Tour</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Announce your arrival at each venue with the required catchphrase.</div>
+            <div class="flipper-grid">
+                <div class="flipper-loc"><span>The Bank: "I'm here to make a deposit!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
+                <div class="flipper-loc"><span>Websters: "Words cannot describe this thirst!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
+                <div class="flipper-loc"><span>Kelly’s: "Is there a pot of gold at this bar?"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
+                <div class="flipper-loc"><span>The Cooper’s: "I’ve come to barrel through!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
+                <div class="flipper-loc"><span>The Newtown: "New town, same old thirst!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
+            </div>
+        </div>
+
         <div style="margin-bottom: 15px;">
             <div class="challenge-title">🍷 The Glandular Redeemer</div>
             <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">A selfless act of refreshment: Buy Owen a drink.</div>
@@ -235,7 +272,7 @@
     
     let inputSeq = "";
     const targetSeq = "BNBN"; 
-    const v = "v28"; 
+    const v = "v31"; 
 
     function tap(letter, btn) {
         inputSeq += letter;

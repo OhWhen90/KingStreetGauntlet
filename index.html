@@ -54,9 +54,6 @@
         #secret-score-box { display: none; color: var(--secret); }
         #secret-score-box .score-val { color: var(--secret); }
 
-        .winner-glow { color: var(--gold) !important; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); animation: bounce 1s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
         .container { padding: 15px; max-width: 500px; margin: auto; }
         .location-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; margin-bottom: 20px; }
         
@@ -88,12 +85,10 @@
 
         .btn { border: none; padding: 12px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; }
         .reset-btn { background: #dfe6e9; color: #636e72; }
-        .hide-btn { background: var(--secret); color: white; display: none; }
+        .hide-btn { background: var(--secret); color: white; display: none; margin-bottom: 10px; }
 
-        .acrostic { margin-top: 10px; padding-left: 15px; border-left: 3px solid var(--secondary); font-style: normal; color: var(--text); }
+        .acrostic { margin-top: 10px; padding-left: 15px; border-left: 3px solid var(--secondary); font-style: normal; color: var(--text); font-size: 0.85rem; }
         .acrostic b { color: var(--primary); }
-
-        #riddle-text { display: none; margin-top: 20px; padding: 10px; opacity: 0.7; font-size: 0.8rem; text-align: center; }
     </style>
 </head>
 <body>
@@ -177,7 +172,8 @@
 
     <div class="challenge-card">
         <div class="challenge-title">🔠 The Acronym</div>
-        <div class="challenge-desc">Drink your name. Order 4 drinks starting with the first 4 letters of your name.</div>
+        <div class="challenge-desc">Drink your name. Order <b>four</b> drinks starting with the first <b>four</b> letters of your name.</div>
+        <div style="font-size: 0.75rem; color: #95a5a6; margin-bottom: 5px;">Example (using the name TRACEY):</div>
         <div class="acrostic">
             <b>T</b>equila Sunrise<br>
             <b>R</b>ibena<br>
@@ -200,18 +196,47 @@
 
     <div id="secret-section" class="challenge-card secret-card">
         <div class="challenge-title" style="color: var(--secret);">🕵️ Extra Secrets</div>
-        <div class="challenge-desc">Hidden tasks found in the Royal Pendulum.</div>
-        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> 🥧 Daniella Dessert: A slice of pie</label>
-        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> 👻 Ghost Mode: Photo with school staff</label>
-        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="2"> 🤝 Roundhouse: Stranger cheers</label>
-        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="5"> 👑 The King: A digital signature</label>
+        <div class="challenge-desc">Legacy tasks for the true Newtown elite.</div>
+        
+        <div style="margin-bottom: 15px;">
+            <div style="font-weight: bold; font-size: 0.85rem;">🥧 Daniella Dessert</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Acquire and consume a slice of pie mid-crawl.</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Pie secured</label>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <div style="font-weight: bold; font-size: 0.85rem;">👻 Ghost Mode</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Take a group photo including at least three school staff members.</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Evidence captured</label>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <div style="font-weight: bold; font-size: 0.85rem;">🤝 Roundhouse</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Convince a total stranger to join a group toast.</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="2"> Cheers with a stranger</label>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <div style="font-weight: bold; font-size: 0.85rem;">👑 The King</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Have a local resident sign a digital coaster (phone screen).</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="5"> Royal signature obtained</label>
+        </div>
     </div>
 
     <button id="hide-btn" class="btn hide-btn" onclick="hideSecrets()">🙈 Hide Secrets</button>
     <button class="btn reset-btn" onclick="resetScores()">Start Fresh</button>
 
-    <div id="riddle-text" style="text-align:center; opacity:0.5; font-size:0.8rem; margin-top:30px;">
-        📜 <i>The Royal Pendulum: BNBN</i>
+    <div style="text-align: center; margin-top: 30px; padding-bottom: 50px;">
+        <span onclick="toggleRiddle()" style="cursor:pointer; font-size: 1.5rem; opacity: 0.6;">📜</span>
+        <div id="riddle-text" style="display: none; margin-top: 20px; padding: 15px; background: rgba(162, 155, 254, 0.05); border-radius: 15px;">
+            <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 5px; letter-spacing: 1px;">The Royal Pendulum</p>
+            <p style="font-style: italic; color: #636e72; font-size: 0.85rem;">
+                Where the coin is kept, the pulse begins,<br>
+                To the New Town gate, then back for sins.<br>
+                One round trip leaves the truth concealed,<br>
+                Only the double-cross is ever revealed.
+            </p>
+        </div>
     </div>
 </div>
 
@@ -220,6 +245,7 @@
     const secretSection = document.getElementById('secret-section');
     const secretScoreBox = document.getElementById('secret-score-box');
     const hideBtn = document.getElementById('hide-btn');
+    const riddleText = document.getElementById('riddle-text');
     
     let inputSeq = "";
     const targetSeq = "BNBN"; 
@@ -234,8 +260,8 @@
         secretSection.style.display = 'block';
         secretScoreBox.style.display = 'block';
         hideBtn.style.display = 'block';
-        localStorage.setItem('unlocked_v17', 'true');
-        localStorage.setItem('hidden_v17', 'false');
+        localStorage.setItem('unlocked_v19', 'true');
+        localStorage.setItem('hidden_v19', 'false');
         calculateScore();
     }
 
@@ -243,8 +269,12 @@
         secretSection.style.display = 'none';
         secretScoreBox.style.display = 'none';
         hideBtn.style.display = 'none';
-        localStorage.setItem('hidden_v17', 'true');
+        localStorage.setItem('hidden_v19', 'true');
         calculateScore();
+    }
+
+    function toggleRiddle() {
+        riddleText.style.display = (riddleText.style.display === 'none') ? 'block' : 'none';
     }
 
     function updateLocks() {
@@ -257,7 +287,7 @@
                     bonusSection.classList.add('locked');
                     bonusSection.querySelectorAll('input').forEach(cb => { 
                         cb.checked = false; 
-                        localStorage.setItem('ch_v17_'+Array.from(checkboxes).indexOf(cb), 'false');
+                        localStorage.setItem('ch_v19_'+Array.from(checkboxes).indexOf(cb), 'false');
                     });
                 }
             }
@@ -265,15 +295,15 @@
 
         const c1 = document.getElementById('cat-1'), c2 = document.getElementById('cat-2'), 
               c3 = document.getElementById('cat-3'), w3 = document.getElementById('cat-3-wrapper');
-        if (c1.checked && c2.checked) w3.classList.remove('locked');
-        else { w3.classList.add('locked'); c3.checked = false; localStorage.setItem('ch_v17_'+Array.from(checkboxes).indexOf(c3), 'false'); }
+        if (c1 && c2 && c1.checked && c2.checked) w3.classList.remove('locked');
+        else if (w3) { w3.classList.add('locked'); c3.checked = false; localStorage.setItem('ch_v19_'+Array.from(checkboxes).indexOf(c3), 'false'); }
     }
 
     function calculateScore() {
         let b = 0, mb = 0, bo = 0, mbo = 0, s = 0, ms = 0;
         
-        document.querySelectorAll('.base-chk').forEach(c => { mb += parseInt(c.dataset.points || 1); if(c.checked) b += parseInt(c.dataset.points || 1); });
-        document.querySelectorAll('.bonus-chk').forEach(c => { mbo += parseInt(c.dataset.points || 1); if(c.checked) bo += parseInt(c.dataset.points || 1); });
+        document.querySelectorAll('.base-chk').forEach(c => { mb += 1; if(c.checked) b += 1; });
+        document.querySelectorAll('.bonus-chk').forEach(c => { mbo += 1; if(c.checked) bo += 1; });
         
         const secretsVisible = window.getComputedStyle(secretSection).display === 'block';
         if (secretsVisible) {
@@ -293,21 +323,21 @@
     }
 
     window.onload = () => {
-        if(localStorage.getItem('unlocked_v17') === 'true' && localStorage.getItem('hidden_v17') !== 'true') {
-            secretSection.style.display = 'block'; secretScoreBox.style.display = 'block'; hideBtn.style.display = 'block';
+        if(localStorage.getItem('unlocked_v19') === 'true' && localStorage.getItem('hidden_v19') !== 'true') {
+            unlockSecrets();
         }
-        checkboxes.forEach((cb, i) => { if(localStorage.getItem('ch_v17_'+i) === 'true') cb.checked = true; });
+        checkboxes.forEach((cb, i) => { if(localStorage.getItem('ch_v19_'+i) === 'true') cb.checked = true; });
         updateLocks(); calculateScore();
     };
 
     checkboxes.forEach((cb, i) => {
         cb.addEventListener('change', () => {
-            localStorage.setItem('ch_v17_'+i, cb.checked);
+            localStorage.setItem('ch_v19_'+i, cb.checked);
             updateLocks(); calculateScore();
         });
     });
 
-    document.querySelector('.reset-btn').onclick = () => { if(confirm("Reset everything?")) { localStorage.clear(); location.reload(); }};
+    function resetScores() { if(confirm("Reset all scores and progress?")) { localStorage.clear(); location.reload(); }}
 </script>
 </body>
 </html>

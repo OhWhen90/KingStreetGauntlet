@@ -21,9 +21,8 @@
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            /* Extra padding at bottom to ensure mobile UI doesn't cut off content */
             padding-bottom: 150px; 
-            line-height: 1.6;
+            line-height: 1.4;
             scroll-behavior: smooth;
             overflow-x: hidden;
         }
@@ -39,17 +38,17 @@
             border-bottom: 4px solid var(--secondary);
         }
 
-        h1 { margin: 0 0 10px 0; font-size: 1.3rem; color: var(--text); }
+        h1 { margin: 0 0 10px 0; font-size: 1.2rem; color: var(--text); }
 
         .score-display { 
             display: flex; 
             justify-content: space-around; 
             background: var(--btn-bg);
-            padding: 10px;
-            border-radius: 15px;
+            padding: 8px;
+            border-radius: 12px;
         }
-        .score-box { text-align: center; flex: 1; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; }
-        .score-val { color: var(--primary); display: block; font-size: 1.2rem; }
+        .score-box { text-align: center; flex: 1; font-size: 0.7rem; text-transform: uppercase; font-weight: bold; }
+        .score-val { color: var(--primary); display: block; font-size: 1.1rem; }
         
         #secret-score-box { display: none; color: var(--secret); }
         #secret-score-box .score-val { color: var(--secret); }
@@ -73,98 +72,82 @@
             justify-content: center;
             background: var(--card-bg);
             border: 2px solid var(--secondary);
-            border-radius: 25px;
-            padding: 8px 14px;
-            margin: 3px;
+            border-radius: 20px;
+            padding: 6px 12px;
+            margin: 2px;
             cursor: pointer;
             transition: all 0.2s;
             color: var(--secondary);
             font-weight: 600;
-            font-size: 0.85rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 0.8rem;
         }
         
-        .mini-btn { 
-            background: var(--btn-bg);
-            border: none;
-            padding: 4px 8px; 
-            font-size: 0.75rem; 
-            border-radius: 8px; 
-            min-width: 35px; 
-            font-weight: bold;
-        }
-
-        .loc-btn:active { 
-            transform: scale(0.95); 
-            background: var(--secondary); 
-            color: white; 
-        }
+        .loc-btn:active { transform: scale(0.95); background: var(--secondary); color: white; }
 
         .location-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; margin-bottom: 20px; }
 
         .challenge-card {
             background: var(--card-bg); 
-            border-radius: 20px; 
-            padding: 18px; 
+            border-radius: 15px; 
+            padding: 15px; 
             margin-bottom: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
             border: 1px solid #f1f2f6;
         }
         
-        .secret-card {
-            background: #fdfaff; border: 2px dashed var(--secret); display: none;
-            animation: fadeIn 0.5s ease;
-        }
+        .secret-card { background: #fdfaff; border: 2px dashed var(--secret); display: none; animation: fadeIn 0.5s ease; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .challenge-title { font-size: 1rem; font-weight: bold; margin-bottom: 8px; color: var(--text); }
-        .challenge-desc { font-size: 0.85rem; color: #7f8c8d; margin-bottom: 12px; }
+        .challenge-title { font-size: 0.95rem; font-weight: bold; margin-bottom: 5px; color: var(--text); }
+        .challenge-desc { font-size: 0.8rem; color: #7f8c8d; margin-bottom: 10px; font-style: italic; }
         
         .bonus-section { 
             background: #fffafa; 
-            padding: 10px; 
-            border-radius: 12px; 
-            margin-top: 10px;
+            padding: 8px; 
+            border-radius: 10px; 
+            margin-top: 8px;
             border: 1px inset #fff1f1;
         }
         
-        .checkbox-item { display: flex; align-items: center; margin: 8px 0; font-size: 0.9rem; cursor: pointer; }
+        .checkbox-item { display: flex; align-items: flex-start; margin: 8px 0; font-size: 0.85rem; cursor: pointer; }
         
         input[type="checkbox"] { 
-            width: 22px; 
-            height: 22px; 
+            width: 20px; 
+            height: 20px; 
             margin-right: 10px; 
+            margin-top: 2px;
             accent-color: var(--primary); 
             cursor: pointer; 
         }
 
-        .flipper-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+        .flipper-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
         .flipper-loc { 
-            font-size: 0.8rem; 
+            font-size: 0.75rem; 
             background: #f9f9f9; 
             padding: 8px; 
-            border-radius: 10px; 
+            border-radius: 8px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
         }
+        .flipper-name { font-weight: bold; color: var(--text); flex: 1; }
 
-        .btn { border: none; padding: 14px; width: 100%; border-radius: 15px; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 0.95rem; }
+        .btn { border: none; padding: 12px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 0.9rem; }
         .reset-btn { background: #dfe6e9; color: #636e72; }
         .hide-btn { background: var(--secret); color: white; display: none; margin-bottom: 10px; }
 
-        #riddle-text { display: none; margin-top: 20px; padding: 10px; opacity: 0.7; font-size: 0.85rem; text-align: center; }
-        .riddle-header { text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 8px; letter-spacing: 1px; }
+        #riddle-text { display: none; margin-top: 20px; padding: 10px; opacity: 0.7; font-size: 0.8rem; text-align: center; }
+        .riddle-header { text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 5px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>Hello, Gauntlet! 👋</h1>
+    <h1>🍻 Staff Crawl: King St Gauntlet</h1>
     <div class="score-display">
-        <div class="score-box">Points<span id="base-score" class="score-val">0</span></div>
-        <div class="score-box">Bonuses<span id="bonus-score" class="score-val">0</span></div>
+        <div class="score-box">Base<span id="base-score" class="score-val">0</span></div>
+        <div class="score-box">Bonus<span id="bonus-score" class="score-val">0</span></div>
         <div id="secret-score-box" class="score-box">Secret<span id="secret-score" class="score-val">0</span></div>
         <div class="score-box">Total<span id="total-score" class="score-val">0</span></div>
     </div>
@@ -180,69 +163,81 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🦸‍♂️ Dorothee's Delight</div>
-        <div class="challenge-desc">Stay in character as your hero while at Websters.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Character fun</label>
+        <div class="challenge-title">🦸‍♂️ Dorothee's Delight (Websters Only)</div>
+        <div class="challenge-desc">Perform your best superhero impersonation.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Perform impersonation</label>
         <div class="bonus-section">
-            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Someone identifies you</label>
-            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Hero is Iron Man</label>
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Someone outside the group guesses who you are</label>
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Impersonate Iron Man</label>
         </div>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">⚓ The Anchor</div>
-        <div class="challenge-desc">Don't let go of your glass until the drink is gone.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Steady grip achieved</label>
+        <div class="challenge-desc">Drink a full drink without letting go of the glass (No shots).</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Steady hand achievement</label>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">🐱 The Kitty Cat</div>
-        <div class="challenge-desc">Photo op with the King Street feline residents.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Found a furry friend</label>
+        <div class="challenge-desc">Find a cat and take a selfie with it.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> First cat selfie</label>
         <div class="bonus-section">
-            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Met a second cat</label>
-            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> <b>The Trio:</b> Third cat selfie!</label>
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Second cat/selfie found</label>
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Third cat/selfie found</label>
         </div>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">🎵 The Staff Anthem</div>
-        <div class="challenge-desc">A short song or verse for the bar staff.</div>
-        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Shared a song</label>
+        <div class="challenge-desc">Write a new verse of the school song about any current staff member.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Verse written</label>
+        <div class="bonus-section">
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Sing it to the bar staff</label>
+        </div>
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🎯 The Flipper</div>
-        <div class="challenge-desc">Land a coaster flip with each hand at every stop.</div>
+        <div class="challenge-title">🎯 The Flipper (Up to 10 pts)</div>
+        <div class="challenge-desc">1 point for each successful hand flip per location.</div>
         <div class="flipper-grid">
-            <div class="flipper-loc"><span class="mini-btn">B</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
-            <div class="flipper-loc"><span class="mini-btn">W</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
-            <div class="flipper-loc"><span class="mini-btn">K</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
-            <div class="flipper-loc"><span class="mini-btn">C</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
-            <div class="flipper-loc"><span class="mini-btn">N</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
+            <div class="flipper-loc"><span class="flipper-name">The Bank</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
+            <div class="flipper-loc"><span class="flipper-name">Websters</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
+            <div class="flipper-loc"><span class="flipper-name">Kelly’s on King</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
+            <div class="flipper-loc"><span class="flipper-name">The Cooper’s Hotel</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
+            <div class="flipper-loc"><span class="flipper-name">The Newtown Hotel</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
         </div>
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🙋‍♂️ Attention Grabber</div>
-        <div class="challenge-desc">Keep one arm straight up for 5 minutes.</div>
+        <div class="challenge-title">🙋‍♂️ The Attention Grabber</div>
+        <div class="challenge-desc">Keep your right arm raised straight up for 5 minutes.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> 5-minute reach</label>
+        <div class="bonus-section">
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> <b>Silence:</b> No talking while arm is up</label>
+        </div>
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🔠 The Acronym</div>
-        <div class="challenge-desc">Tasks for the first 4 letters of your name.</div>
+        <div class="challenge-title">🔠 The Acronym (4 pts)</div>
+        <div class="challenge-desc">Drink your name. Order 4 drinks starting with the first 4 letters of your name.</div>
         <div style="display: flex; justify-content: space-around; margin-top: 10px;">
-            <label style="text-align:center"><span class="mini-btn">L1</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center"><span class="mini-btn">L2</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center"><span class="mini-btn">L3</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center"><span class="mini-btn">L4</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center"><span>L1</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center"><span>L2</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center"><span>L3</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center"><span>L4</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
         </div>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title">💬 The Scripted Order</div>
+        <div class="challenge-desc">Order by saying only: "The usual, thanks," "Surprise me," or "I’ll have what they’re having." (No other words allowed).</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Order successfully placed</label>
     </div>
 
     <div id="secret-section" class="challenge-card secret-card">
         <div class="challenge-title" style="color: var(--secret);">🕵️ Extra Secrets</div>
-        <div class="challenge-desc">You found them! Hidden tasks for the brave.</div>
+        <div class="challenge-desc">Hidden tasks found in the Royal Pendulum.</div>
         <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> 🥧 Daniella Dessert: A slice of pie</label>
         <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> 👻 Ghost Mode: Photo with school staff</label>
         <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="2"> 🤝 Roundhouse: Stranger cheers</label>
@@ -289,10 +284,8 @@
         secretSection.style.display = 'block';
         secretScoreBox.style.display = 'block';
         hideBtn.style.display = 'block';
-        localStorage.setItem('unlocked_v5', 'true');
+        localStorage.setItem('unlocked_v9', 'true');
         calculateScore();
-        
-        // Timeout ensures the element is rendered/visible before scrolling
         setTimeout(() => {
             secretSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 150);
@@ -306,8 +299,9 @@
     }
 
     function toggleRiddle() {
-        riddleText.style.display = (riddleText.style.display === 'none' || riddleText.style.display === '') ? 'block' : 'none';
-        if(riddleText.style.display === 'block') {
+        const isHidden = (riddleText.style.display === 'none' || riddleText.style.display === '');
+        riddleText.style.display = isHidden ? 'block' : 'none';
+        if(isHidden) {
             setTimeout(() => {
                 riddleText.scrollIntoView({ behavior: 'smooth', block: 'end' });
             }, 50);
@@ -315,43 +309,45 @@
     }
 
     window.onload = () => {
-        if(localStorage.getItem('unlocked_v5') === 'true') {
+        if(localStorage.getItem('unlocked_v9') === 'true') {
             secretSection.style.display = 'block';
             secretScoreBox.style.display = 'block';
             hideBtn.style.display = 'block';
         }
         checkboxes.forEach((cb, i) => {
-            if(localStorage.getItem('ch_v5_'+i) === 'true') cb.checked = true;
+            if(localStorage.getItem('ch_v9_'+i) === 'true') cb.checked = true;
         });
         calculateScore();
     };
 
     checkboxes.forEach((cb, i) => {
         cb.addEventListener('change', () => {
-            localStorage.setItem('ch_v5_'+i, cb.checked);
+            localStorage.setItem('ch_v9_'+i, cb.checked);
             calculateScore();
         });
     });
 
     function calculateScore() {
-        let base = 0, bonus = 0, secret = 0, maxVisible = 0;
-        document.querySelectorAll('.base-chk').forEach(c => maxVisible += parseInt(c.dataset.points));
-        document.querySelectorAll('.bonus-chk').forEach(c => maxVisible += parseInt(c.dataset.points));
-        document.querySelectorAll('.base-chk:checked').forEach(c => base += parseInt(c.dataset.points));
-        document.querySelectorAll('.bonus-chk:checked').forEach(c => bonus += parseInt(c.dataset.points));
-
-        const isVisible = window.getComputedStyle(secretSection).display === 'block';
-        if (isVisible) {
-            document.querySelectorAll('.secret-chk').forEach(c => maxVisible += parseInt(c.dataset.points));
-            document.querySelectorAll('.secret-chk:checked').forEach(c => secret += parseInt(c.dataset.points));
+        let base = 0, bonus = 0, secret = 0, maxPossible = 0;
+        document.querySelectorAll('.base-chk').forEach(c => {
+            maxPossible += parseInt(c.dataset.points);
+            if(c.checked) base += parseInt(c.dataset.points);
+        });
+        document.querySelectorAll('.bonus-chk').forEach(c => {
+            maxPossible += parseInt(c.dataset.points);
+            if(c.checked) bonus += parseInt(c.dataset.points);
+        });
+        if (window.getComputedStyle(secretSection).display === 'block') {
+            document.querySelectorAll('.secret-chk').forEach(c => {
+                maxPossible += parseInt(c.dataset.points);
+                if(c.checked) secret += parseInt(c.dataset.points);
+            });
         }
-
         const total = base + bonus + secret;
         document.getElementById('base-score').innerText = base;
         document.getElementById('bonus-score').innerText = bonus;
         document.getElementById('secret-score').innerText = secret;
-        
-        if (total >= maxVisible && total > 0) {
+        if (total >= maxPossible && total > 0) {
             totalDisplay.classList.add('winner-glow');
             totalDisplay.innerHTML = "👑 " + total;
         } else {
@@ -361,12 +357,11 @@
     }
 
     document.querySelector('.reset-btn').onclick = () => {
-        if(confirm("Start Fresh? Progress will be lost.")) {
+        if(confirm("Start Fresh? All progress will be lost.")) {
             localStorage.clear();
             location.reload();
         }
     };
 </script>
-
 </body>
 </html>

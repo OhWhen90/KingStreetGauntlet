@@ -87,9 +87,20 @@
             height: 100%; width: 0%; background: var(--gold); transition: width 0.4s ease;
         }
 
+        .name-wrapper { position: relative; width: 100%; margin-bottom: 10px; }
         .name-input {
-            width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 10px; font-size: 0.9rem; box-sizing: border-box;
+            width: 100%; padding: 10px 35px 10px 10px; border-radius: 8px; border: 2px solid var(--secondary); font-size: 0.9rem; box-sizing: border-box; font-weight: bold;
         }
+        .clear-btn {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            background: #dfe6e9; color: #636e72; border: none; border-radius: 50%;
+            width: 20px; height: 20px; font-size: 12px; cursor: pointer; line-height: 1;
+        }
+
+        .example-box {
+            background: #f9f9f9; border-left: 4px solid var(--secondary); padding: 10px; margin-bottom: 15px; font-size: 0.8rem;
+        }
+        .example-box b { color: var(--primary); }
 
         .flipper-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
         .flipper-loc { font-size: 0.75rem; background: #f9f9f9; padding: 8px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
@@ -100,8 +111,8 @@
 
         .timer-display { font-family: monospace; font-size: 1.2rem; color: var(--primary); font-weight: bold; display: none; margin: 5px 0; }
 
-        .acrostic { margin-top: 10px; padding-left: 15px; border-left: 3px solid var(--secondary); font-style: normal; color: var(--text); font-size: 0.85rem; }
-        .acrostic b { color: var(--primary); }
+        .riddle-box { margin-top: 20px; padding: 20px; background: rgba(162, 155, 254, 0.05); border-radius: 15px; border: 1px solid rgba(162, 155, 254, 0.2); }
+        .riddle-line { display: block; margin-bottom: 8px; }
     </style>
 </head>
 <body>
@@ -149,7 +160,7 @@
 
     <div class="challenge-card">
         <div class="challenge-title">🎓 The Grad Cap Challenge</div>
-        <div class="challenge-desc">Place an item on your head and throw it off at 3 different stops. Must be done in order.</div>
+        <div class="challenge-desc">Place an item on your head and throw it off at 3 different stops.</div>
         <div class="progress-container"><div id="grad-progress" class="progress-bar"></div></div>
         <div style="display: flex; justify-content: space-around; margin-top: 15px;">
             <label style="text-align:center; font-size: 0.7rem;">Stop 1<br><input type="checkbox" id="grad-1" class="base-chk" data-points="1"></label>
@@ -185,26 +196,38 @@
         <div class="flipper-grid">
             <div class="flipper-loc"><span>The Bank</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
             <div class="flipper-loc"><span>Websters</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
-            <div class="flipper-loc"><span>Kelly’s on King</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
-            <div class="flipper-loc"><span>The Cooper’s Hotel</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
-            <div class="flipper-loc"><span>The Newtown Hotel</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
+            <div class="flipper-loc"><span>Kelly’s</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
+            <div class="flipper-loc"><span>Cooper’s</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
+            <div class="flipper-loc"><span>Newtown</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
         </div>
     </div>
 
     <div class="challenge-card" id="grabber-card">
         <div class="challenge-title">🙋‍♂️ The Attention Grabber</div>
         <div class="challenge-desc">Keep your right arm raised straight up for 5 minutes.</div>
-        <label class="checkbox-item"><input type="checkbox" id="timer-trigger" class="base-chk root-trigger" data-points="1"> Arm raised for 5 minutes</label>
+        <label class="checkbox-item"><input type="checkbox" id="timer-trigger" class="base-chk root-trigger" data-points="1"> Arm raised</label>
         <div id="countdown" class="timer-display">05:00</div>
         <div class="bonus-section locked">
-            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> You cannot speak while your arm is up</label>
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> No speaking while arm is up</label>
         </div>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">🔠 The Acronym</div>
         <div class="challenge-desc">Order <b>four</b> drinks starting with the first <b>four</b> letters of your name.</div>
-        <input type="text" id="name-field" class="name-input" placeholder="Enter your name..." maxlength="4">
+        
+        <div class="example-box">
+            <b>T</b>equila Sunrise<br>
+            <b>R</b>ibena<br>
+            <b>A</b>perol Spritz<br>
+            <b>C</b>rown Lager
+        </div>
+
+        <div class="name-wrapper">
+            <input type="text" id="name-field" class="name-input" placeholder="Type your name here..." maxlength="4">
+            <button class="clear-btn" onclick="clearName()">×</button>
+        </div>
+        
         <div style="display: flex; justify-content: space-between; margin-top: 5px;">
             <label style="text-align:center; font-size: 0.7rem;"><span class="letter-label">1st</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
             <label style="text-align:center; font-size: 0.7rem;"><span class="letter-label">2nd</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
@@ -215,48 +238,23 @@
 
     <div class="challenge-card">
         <div class="challenge-title">💬 The Scripted Order</div>
-        <div class="challenge-desc">Use "The usual", "Surprise me", or "I'll have what they're having".</div>
-        <label class="checkbox-item" style="margin-top:10px;"><input type="checkbox" class="base-chk" data-points="1"> Successful scripted order</label>
+        <div class="challenge-desc">Order using <b>only</b>: "The usual, thanks", "Surprise me", or "I'll have what they're having". No other words allowed.</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Successful scripted order</label>
     </div>
 
     <div id="secret-section" class="challenge-card secret-card">
         <div class="challenge-title" style="color: var(--secret);">🕵️ Extra Secrets</div>
-        
-        <div style="margin-bottom: 20px;">
-            <div class="challenge-title">📣 The Public Embarrassment Tour (1pt each)</div>
-            <div class="challenge-desc">Announce arrival at each venue with a specific catchphrase.</div>
-            <div class="flipper-grid">
-                <div class="flipper-loc"><span>Bank: "I'm here to make a deposit!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-                <div class="flipper-loc"><span>Websters: "Words cannot describe this thirst!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-                <div class="flipper-loc"><span>Kelly’s: "Is there a pot of gold at this bar?"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-                <div class="flipper-loc"><span>Cooper’s: "I’ve come to barrel through!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-                <div class="flipper-loc"><span>Newtown: "New town, same old thirst!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
-            </div>
+        <div class="flipper-grid">
+            <div class="flipper-loc"><span>Bank Catchphrase</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
+            <div class="flipper-loc"><span>Websters Catchphrase</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
+            <div class="flipper-loc"><span>Kelly’s Catchphrase</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
+            <div class="flipper-loc"><span>Cooper’s Catchphrase</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
+            <div class="flipper-loc"><span>Newtown Catchphrase</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
         </div>
-
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🌍 The Polyglot Principle (4 pts)</div>
-            <div class="challenge-desc">Learn and say "We need leadership" in a new language.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Phrase mastered and performed</label>
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🍷 The Glandular Redeemer (3 pts)</div>
-            <div class="challenge-desc">A selfless act of refreshment: Buy Owen a drink.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Bounty delivered</label>
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🥚 Easter is Gone but Not Forgotten (4 pts)</div>
-            <div class="challenge-desc">Acquire and consume a whole egg mid-crawl.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Egg consumed</label>
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🥧 The Daniella Dish (4 pts)</div>
-            <div class="challenge-desc">Acquire and consume a pie (sweet or savory) mid-crawl.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Pie secured</label>
-        </div>
+        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> 🌍 Polyglot: "We need leadership"</label>
+        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> 🍷 Redeemer: Buy Owen a drink</label>
+        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> 🥚 Egg Mastery</label>
+        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> 🥧 Daniella Dish (Pie)</label>
     </div>
 
     <button id="hide-btn" class="btn hide-btn" onclick="hideSecrets()">🙈 Hide Secrets</button>
@@ -264,12 +262,16 @@
 
     <div style="text-align: center; margin-top: 30px; padding-bottom: 50px;">
         <span onclick="toggleRiddle()" style="font-size: 1.5rem; opacity: 0.6; cursor: pointer;">📜</span>
-        <div id="riddle-text" style="display: none; margin-top: 20px; padding: 15px; background: rgba(162, 155, 254, 0.05); border-radius: 15px;">
-            <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 5px; letter-spacing: 1px;">The Royal Pendulum</p>
-            <p style="font-style: italic; color: #636e72; font-size: 0.85rem;">
-                Where the coin is kept, the pulse begins, On to the sign where the lemon mallard swims.
-                One round trip leaves the truth concealed, Only the double-cross is ever revealed.
-            </p>
+        <div id="riddle-text" style="display: none;">
+            <div class="riddle-box">
+                <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 15px; letter-spacing: 1px; text-align: center;">The Royal Pendulum</p>
+                <p style="font-style: italic; color: #636e72; font-size: 0.9rem; line-height: 1.8; text-align: center;">
+                    <span class="riddle-line">Where the coin is kept, the pulse begins,</span>
+                    <span class="riddle-line">On to the sign where the lemon mallard swims.</span>
+                    <span class="riddle-line">One round trip leaves the truth concealed,</span>
+                    <span class="riddle-line">Only the double-cross is ever revealed.</span>
+                </p>
+            </div>
         </div>
     </div>
 </div>
@@ -282,16 +284,23 @@
     const riddleText = document.getElementById('riddle-text');
     const gradBar = document.getElementById('grad-progress');
     const nameField = document.getElementById('name-field');
-    const v = "v40"; 
+    const v = "v43"; 
 
     nameField.addEventListener('input', updateNameLabels);
+
+    function clearName() {
+        nameField.value = "";
+        updateNameLabels();
+        nameField.focus();
+    }
 
     function updateNameLabels() {
         const name = nameField.value.toUpperCase();
         const labels = document.querySelectorAll('.letter-label');
         localStorage.setItem('crawl_name_'+v, name);
         labels.forEach((label, i) => {
-            label.innerText = name[i] ? name[i] : (i+1 + (i==0?'st':i==1?'nd':i==2?'rd':'th'));
+            const defaults = ["1st", "2nd", "3rd", "4th"];
+            label.innerText = name[i] ? name[i] : defaults[i];
         });
     }
 
@@ -352,10 +361,10 @@
 
         const g1 = document.getElementById('grad-1'), g2 = document.getElementById('grad-2'), g3 = document.getElementById('grad-3'), w2 = document.getElementById('grad-2-wrapper'), w3g = document.getElementById('grad-3-wrapper');
         let prog = 0;
-        if (g1.checked) { w2.classList.remove('locked'); prog = 33.3; } else { w2.classList.add('locked'); g2.checked = false; }
-        if (g1.checked && g2.checked) { w3g.classList.remove('locked'); prog = 66.6; } else { w3g.classList.add('locked'); g3.checked = false; }
-        if (g1.checked && g2.checked && g3.checked) prog = 100;
-        gradBar.style.width = prog + "%";
+        if (g1 && g1.checked) { w2.classList.remove('locked'); prog = 33.3; } else if (w2) { w2.classList.add('locked'); g2.checked = false; }
+        if (g1 && g1.checked && g2 && g2.checked) { w3g.classList.remove('locked'); prog = 66.6; } else if (w3g) { w3g.classList.add('locked'); g3.checked = false; }
+        if (g1 && g1.checked && g2 && g2.checked && g3 && g3.checked) prog = 100;
+        if (gradBar) gradBar.style.width = prog + "%";
     }
 
     function calculateScore() {

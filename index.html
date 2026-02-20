@@ -80,6 +80,13 @@
         .checkbox-item { display: flex; align-items: flex-start; margin: 8px 0; font-size: 0.85rem; cursor: pointer; }
         input[type="checkbox"] { width: 20px; height: 20px; margin-right: 10px; margin-top: 2px; accent-color: var(--primary); }
 
+        .progress-container {
+            width: 100%; height: 10px; background: #eee; border-radius: 5px; margin: 10px 0; overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%; width: 0%; background: var(--gold); transition: width 0.4s ease;
+        }
+
         .flipper-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
         .flipper-loc { font-size: 0.75rem; background: #f9f9f9; padding: 8px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
 
@@ -138,11 +145,12 @@
 
     <div class="challenge-card">
         <div class="challenge-title">🎓 The Grad Cap Challenge</div>
-        <div class="challenge-desc">At three different pub stops, place a small item on your head, shout a celebratory phrase, and throw it off.</div>
+        <div class="challenge-desc">Place an item on your head and throw it off at 3 different stops. Must be done in order.</div>
+        <div class="progress-container"><div id="grad-progress" class="progress-bar"></div></div>
         <div style="display: flex; justify-content: space-around; margin-top: 15px;">
-            <label style="text-align:center; font-size: 0.7rem;">Stop 1<br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center; font-size: 0.7rem;">Stop 2<br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center; font-size: 0.7rem;">Stop 3<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">Stop 1<br><input type="checkbox" id="grad-1" class="base-chk" data-points="1"></label>
+            <label id="grad-2-wrapper" class="locked" style="text-align:center; font-size: 0.7rem;">Stop 2<br><input type="checkbox" id="grad-2" class="base-chk" data-points="1"></label>
+            <label id="grad-3-wrapper" class="locked" style="text-align:center; font-size: 0.7rem;">Stop 3<br><input type="checkbox" id="grad-3" class="base-chk" data-points="1"></label>
         </div>
     </div>
 
@@ -192,24 +200,17 @@
     <div class="challenge-card">
         <div class="challenge-title">🔠 The Acronym</div>
         <div class="challenge-desc">Order <b>four</b> drinks starting with the first <b>four</b> letters of your name.</div>
-        <div style="font-size: 0.75rem; color: #95a5a6; margin-bottom: 5px;">Example (using the name TRACEY):</div>
-        <div class="acrostic">
-            <b>T</b>equila Sunrise<br>
-            <b>R</b>ibena<br>
-            <b>A</b>perol Spritz<br>
-            <b>C</b>rown Lager
-        </div>
+        <div class="acrostic"><b>T</b>equila Sunrise, <b>R</b>ibena, <b>A</b>perol Spritz, <b>C</b>rown Lager</div>
         <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-            <label style="text-align:center; font-size: 0.7rem;">1st Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center; font-size: 0.7rem;">2nd Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center; font-size: 0.7rem;">3rd Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
-            <label style="text-align:center; font-size: 0.7rem;">4th Letter<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">1st<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">2nd<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">3rd<br><input type="checkbox" class="base-chk" data-points="1"></label>
+            <label style="text-align:center; font-size: 0.7rem;">4th<br><input type="checkbox" class="base-chk" data-points="1"></label>
         </div>
     </div>
 
     <div class="challenge-card">
         <div class="challenge-title">💬 The Scripted Order</div>
-        <div class="challenge-desc">You must order your drink using only ONE of these specific phrases:</div>
         <div style="font-size: 0.85rem; background: #f9f9f9; padding: 12px; border-radius: 10px; border-left: 4px solid var(--primary); line-height: 1.6;">
             • "The usual, thanks."<br>
             • "Surprise me."<br>
@@ -220,11 +221,9 @@
 
     <div id="secret-section" class="challenge-card secret-card">
         <div class="challenge-title" style="color: var(--secret);">🕵️ Extra Secrets</div>
-        <div class="challenge-desc">Special requirements for those who know where to tap.</div>
         
         <div style="margin-bottom: 20px;">
             <div class="challenge-title">📣 The Public Embarrassment Tour (1pt each)</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Announce arrival at each venue with catchphrase.</div>
             <div class="flipper-grid">
                 <div class="flipper-loc"><span>Bank: "I'm here to make a deposit!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
                 <div class="flipper-loc"><span>Websters: "Words cannot describe this thirst!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
@@ -235,27 +234,25 @@
         </div>
 
         <div style="margin-bottom: 15px;">
-            <div class="challenge-title">👁️ The Lisa Connection (4 pts)</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Eat a chicken wing without breaking eye contact with someone.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Intense connection made</label>
+            <div class="challenge-title">🌍 The Polyglot Principle (4 pts)</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Learn and say "We need leadership" in a new language.</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Phrase mastered and performed</label>
         </div>
 
         <div style="margin-bottom: 15px;">
             <div class="challenge-title">🍷 The Glandular Redeemer (3 pts)</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">A selfless act of refreshment: Buy Owen a drink.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Bounty delivered</label>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Buy Owen a drink</label>
         </div>
 
         <div style="margin-bottom: 15px;">
             <div class="challenge-title">🥚 Easter is Gone but Not Forgotten (4 pts)</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Find and consume an egg mid-crawl.</div>
+            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Consume an egg mid-crawl.</div>
             <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Egg consumed</label>
         </div>
 
         <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🥧 The Daniella Dish (3 pts)</div>
-            <div style="font-size: 0.75rem; color: #7f8c8d; margin-bottom: 5px;">Acquire and consume a pie (sweet or savory) mid-crawl.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Pie secured</label>
+            <div class="challenge-title">🥧 The Daniella Dish (4 pts)</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Acquire and consume a pie</label>
         </div>
     </div>
 
@@ -267,10 +264,8 @@
         <div id="riddle-text" style="display: none; margin-top: 20px; padding: 15px; background: rgba(162, 155, 254, 0.05); border-radius: 15px;">
             <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 5px; letter-spacing: 1px;">The Royal Pendulum</p>
             <p style="font-style: italic; color: #636e72; font-size: 0.85rem;">
-                Where the coin is kept, the pulse begins,<br>
-                On to the sign where the lemon mallard swims.<br>
-                One round trip leaves the truth concealed,<br>
-                Only the double-cross is ever revealed.
+                Where the coin is kept, the pulse begins, On to the sign where the lemon mallard swims.
+                One round trip leaves the truth concealed, Only the double-cross is ever revealed.
             </p>
         </div>
     </div>
@@ -282,7 +277,8 @@
     const secretScoreBox = document.getElementById('secret-score-box');
     const hideBtn = document.getElementById('hide-btn');
     const riddleText = document.getElementById('riddle-text');
-    const v = "v36"; 
+    const gradBar = document.getElementById('grad-progress');
+    const v = "v39"; 
 
     let timerInterval;
     const timerDisplay = document.getElementById('countdown');
@@ -298,14 +294,9 @@
         let timer = duration, min, sec;
         clearInterval(timerInterval);
         timerInterval = setInterval(function () {
-            min = parseInt(timer / 60, 10);
-            sec = parseInt(timer % 60, 10);
+            min = parseInt(timer / 60, 10); sec = parseInt(timer % 60, 10);
             timerDisplay.textContent = (min < 10 ? "0"+min : min) + ":" + (sec < 10 ? "0"+sec : sec);
-            if (--timer < 0) {
-                clearInterval(timerInterval);
-                alert("Challenge Complete!");
-                timerDisplay.style.color = "var(--secondary)";
-            }
+            if (--timer < 0) { clearInterval(timerInterval); alert("Challenge Complete!"); timerDisplay.style.color = "var(--secondary)"; }
         }, 1000);
     }
 
@@ -318,32 +309,38 @@
 
     function unlockSecrets() {
         secretSection.style.display = 'block'; secretScoreBox.style.display = 'block'; hideBtn.style.display = 'block';
-        localStorage.setItem('unlocked_'+v, 'true'); localStorage.setItem('hidden_'+v, 'false');
-        calculateScore();
+        localStorage.setItem('unlocked_'+v, 'true'); localStorage.setItem('hidden_'+v, 'false'); calculateScore();
     }
 
     function hideSecrets() {
         secretSection.style.display = 'none'; secretScoreBox.style.display = 'none'; hideBtn.style.display = 'none';
-        localStorage.setItem('hidden_'+v, 'true');
-        calculateScore();
+        localStorage.setItem('hidden_'+v, 'true'); calculateScore();
     }
 
     function toggleRiddle() { riddleText.style.display = (riddleText.style.display === 'none') ? 'block' : 'none'; }
 
     function updateLocks() {
         document.querySelectorAll('.challenge-card').forEach(card => {
-            const root = card.querySelector('.root-trigger');
-            const bonusSection = card.querySelector('.bonus-section');
+            const root = card.querySelector('.root-trigger'), bonusSection = card.querySelector('.bonus-section');
             if (root && bonusSection) {
                 if (root.checked) bonusSection.classList.remove('locked');
                 else {
                     bonusSection.classList.add('locked');
-                    bonusSection.querySelectorAll('input').forEach(cb => { 
-                        cb.checked = false; localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(cb), 'false');
-                    });
+                    bonusSection.querySelectorAll('input').forEach(cb => { cb.checked = false; localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(cb), 'false'); });
                 }
             }
         });
+
+        const c1 = document.getElementById('cat-1'), c2 = document.getElementById('cat-2'), c3 = document.getElementById('cat-3'), w3 = document.getElementById('cat-3-wrapper');
+        if (c1 && c2 && c1.checked && c2.checked) w3.classList.remove('locked');
+        else if (w3) { w3.classList.add('locked'); c3.checked = false; localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(c3), 'false'); }
+
+        const g1 = document.getElementById('grad-1'), g2 = document.getElementById('grad-2'), g3 = document.getElementById('grad-3'), w2 = document.getElementById('grad-2-wrapper'), w3g = document.getElementById('grad-3-wrapper');
+        let prog = 0;
+        if (g1.checked) { w2.classList.remove('locked'); prog = 33.3; } else { w2.classList.add('locked'); g2.checked = false; }
+        if (g1.checked && g2.checked) { w3g.classList.remove('locked'); prog = 66.6; } else { w3g.classList.add('locked'); g3.checked = false; }
+        if (g1.checked && g2.checked && g3.checked) prog = 100;
+        gradBar.style.width = prog + "%";
     }
 
     function calculateScore() {
@@ -351,18 +348,12 @@
         document.querySelectorAll('.base-chk').forEach(c => { mb += 1; if(c.checked) b += 1; });
         document.querySelectorAll('.bonus-chk').forEach(c => { mbo += 1; if(c.checked) bo += 1; });
         if (window.getComputedStyle(secretSection).display === 'block') {
-            document.querySelectorAll('.secret-chk').forEach(c => { 
-                let p = parseInt(c.dataset.points) || 1; ms += p; if(c.checked) s += p; 
-            });
+            document.querySelectorAll('.secret-chk').forEach(c => { let p = parseInt(c.dataset.points) || 1; ms += p; if(c.checked) s += p; });
         }
-        document.getElementById('base-score').innerText = b;
-        document.getElementById('max-base').innerText = mb;
-        document.getElementById('bonus-score').innerText = bo;
-        document.getElementById('max-bonus').innerText = mbo;
-        document.getElementById('secret-score').innerText = s;
-        document.getElementById('max-secret').innerText = ms;
-        document.getElementById('total-score').innerText = b + bo + s;
-        document.getElementById('max-total').innerText = mb + mbo + ms;
+        document.getElementById('base-score').innerText = b; document.getElementById('max-base').innerText = mb;
+        document.getElementById('bonus-score').innerText = bo; document.getElementById('max-bonus').innerText = mbo;
+        document.getElementById('secret-score').innerText = s; document.getElementById('max-secret').innerText = ms;
+        document.getElementById('total-score').innerText = b + bo + s; document.getElementById('max-total').innerText = mb + mbo + ms;
     }
 
     window.onload = () => {
@@ -372,10 +363,7 @@
     };
 
     checkboxes.forEach((cb, i) => {
-        cb.addEventListener('change', () => {
-            localStorage.setItem('ch_'+v+'_'+i, cb.checked);
-            updateLocks(); calculateScore();
-        });
+        cb.addEventListener('change', () => { localStorage.setItem('ch_'+v+'_'+i, cb.checked); updateLocks(); calculateScore(); });
     });
 
     function resetScores() { if(confirm("Reset progress?")) { localStorage.clear(); location.reload(); }}

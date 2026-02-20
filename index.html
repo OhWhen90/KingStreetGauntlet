@@ -22,9 +22,16 @@
             color: var(--text);
             margin: 0;
             padding-bottom: 150px; 
-            line-height: 1.5; /* Slightly increased line height */
+            line-height: 1.5;
             scroll-behavior: smooth;
-            font-size: 1.05rem; /* Increased base font size */
+            font-size: 1.05rem;
+            /* Hide text selection to look more like a static UI */
+            user-select: none; 
+        }
+
+        /* Stealth Cursors: No 'pointer' hand on hover */
+        h1, h2, h3, .challenge-title, span, label, input, .loc-btn, .btn, .clear-btn {
+            cursor: default !important;
         }
 
         .header {
@@ -48,7 +55,7 @@
             border-radius: 12px;
             gap: 5px;
         }
-        .score-box { text-align: center; flex: 1; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; cursor: pointer; }
+        .score-box { text-align: center; flex: 1; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; }
         .score-val { color: var(--primary); display: block; font-size: 1.1rem; }
         .max-val { font-size: 0.8rem; color: #95a5a6; font-weight: normal; }
         
@@ -60,7 +67,7 @@
         
         .loc-btn {
             background: var(--card-bg); border: 2px solid var(--secondary); border-radius: 20px;
-            padding: 8px 14px; margin: 2px; cursor: pointer; color: var(--secondary);
+            padding: 8px 14px; margin: 2px; color: var(--secondary);
             font-weight: 700; font-size: 0.9rem; transition: all 0.2s;
         }
 
@@ -78,8 +85,8 @@
         .bonus-section { background: #fffafa; padding: 10px; border-radius: 10px; margin-top: 10px; border: 1px inset #fff1f1; transition: opacity 0.3s; }
         .locked { opacity: 0.35; pointer-events: none; }
 
-        .checkbox-item { display: flex; align-items: flex-start; margin: 10px 0; font-size: 1rem; cursor: pointer; }
-        input[type="checkbox"] { width: 22px; height: 22px; margin-right: 12px; margin-top: 2px; accent-color: var(--primary); }
+        .checkbox-item { display: flex; align-items: flex-start; margin: 10px 0; font-size: 1rem; }
+        input[type="checkbox"] { width: 22px; height: 22px; margin-right: 12px; margin-top: 2px; accent-color: var(--primary); -webkit-appearance: checkbox; }
 
         .progress-container {
             width: 100%; height: 12px; background: #eee; border-radius: 6px; margin: 12px 0; overflow: hidden;
@@ -90,12 +97,12 @@
 
         .name-wrapper { position: relative; width: 100%; margin-bottom: 12px; }
         .name-input {
-            width: 100%; padding: 12px 40px 12px 12px; border-radius: 8px; border: 2px solid var(--secondary); font-size: 1rem; box-sizing: border-box; font-weight: bold;
+            width: 100%; padding: 12px 40px 12px 12px; border-radius: 8px; border: 2px solid var(--secondary); font-size: 1rem; box-sizing: border-box; font-weight: bold; cursor: text !important;
         }
         .clear-btn {
             position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
             background: #dfe6e9; color: #636e72; border: none; border-radius: 50%;
-            width: 24px; height: 24px; font-size: 14px; cursor: pointer; line-height: 1;
+            width: 24px; height: 24px; font-size: 14px; line-height: 1;
         }
 
         .example-box {
@@ -106,7 +113,7 @@
         .flipper-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
         .flipper-loc { font-size: 0.85rem; background: #f9f9f9; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
 
-        .btn { border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 1rem; }
+        .btn { border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 10px; font-size: 1rem; }
         .reset-btn { background: #dfe6e9; color: #636e72; }
         .hide-btn { background: var(--secret); color: white; display: none; margin-bottom: 10px; }
 
@@ -126,7 +133,7 @@
 <canvas id="confetti-canvas"></canvas>
 
 <div class="header">
-    <h1>🍻 Staff Crawl: The King Street Gauntlet</h1>
+    <h1 onclick="console.log('Stealth active')">🍻 Staff Crawl: The King Street Gauntlet</h1>
     <div class="score-display">
         <div class="score-box">Base<span class="score-val"><span id="base-score">0</span> <span class="max-val">/ <span id="max-base">0</span></span></span></div>
         <div class="score-box">Bonus<span class="score-val"><span id="bonus-score">0</span> <span class="max-val">/ <span id="max-bonus">0</span></span></span></div>
@@ -145,7 +152,7 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🦸‍♂️ Dorothee's Delight (WEBSTERS ONLY)</div>
+        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🦸‍♂️ Dorothee's Delight (WEBSTERS ONLY)</div>
         <div class="challenge-desc">Perform your best superhero impersonation.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Perform impersonation</label>
         <div class="bonus-section locked">
@@ -155,19 +162,19 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">⚓ The Anchor</div>
+        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">⚓ The Anchor</div>
         <div class="challenge-desc">Drink a full drink without letting go of the glass (No shots).</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Drink completed without letting go</label>
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🍹 The Diana Special</div>
+        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🍹 The Diana Special</div>
         <div class="challenge-desc">Drink an entire drink using three straws simultaneously.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Triple-straw mastery</label>
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🎓 The Grad Cap Challenge</div>
+        <div class="challenge-title" onclick="document.getElementById('grad-1').click()">🎓 The Grad Cap Challenge</div>
         <div class="challenge-desc">Place an item on your head and throw it off at 3 different stops.</div>
         <div class="progress-container"><div id="grad-progress" class="progress-bar"></div></div>
         <div style="display: flex; justify-content: space-around; margin-top: 15px;">
@@ -178,7 +185,7 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🐱 Kitty Cat Call Back</div>
+        <div class="challenge-title" onclick="document.getElementById('cat-1').click()">🐱 Kitty Cat Call Back</div>
         <div class="challenge-desc">Find a cat and take a selfie with it.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" id="cat-1" data-points="1"> Find a cat and take a selfie</label>
         <div class="bonus-section locked">
@@ -190,7 +197,7 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🎵 The Staff Anthem</div>
+        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🎵 The Staff Anthem</div>
         <div class="challenge-desc">Write a new verse of the school song about any current staff member.</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk root-trigger" data-points="1"> Verse written</label>
         <div class="bonus-section locked">
@@ -199,7 +206,7 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🍺 The Coaster Flip</div>
+        <div class="challenge-title" onclick="console.log('Flip!')">🍺 The Coaster Flip</div>
         <div class="challenge-desc">1 point for each successful coaster flip per location.</div>
         <div class="flipper-grid">
             <div class="flipper-loc"><span>The Bank</span> <span>L <input type="checkbox" class="base-chk" data-points="1"> R <input type="checkbox" class="base-chk" data-points="1"></span></div>
@@ -211,7 +218,7 @@
     </div>
 
     <div class="challenge-card" id="grabber-card">
-        <div class="challenge-title">🙋‍♂️ The Attention Grabber</div>
+        <div class="challenge-title" onclick="document.getElementById('timer-trigger').click()">🙋‍♂️ The Attention Grabber</div>
         <div class="challenge-desc">Keep your right arm raised straight up for 5 minutes.</div>
         <label class="checkbox-item"><input type="checkbox" id="timer-trigger" class="base-chk root-trigger" data-points="1"> Arm raised for 5 minutes</label>
         <div id="countdown" class="timer-display">05:00</div>
@@ -221,22 +228,16 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">🔠 The Acronym</div>
+        <div class="challenge-title" onclick="console.log('Name challenge')">🔠 The Acronym</div>
         <div class="challenge-desc">Order <b>four</b> drinks starting with the first <b>four</b> letters of your name.</div>
-        
         <div class="example-box">
             <i>Example for the name <b>Tracey</b>:</i><br>
-            <b>T</b>equila Sunrise<br>
-            <b>R</b>ibena<br>
-            <b>A</b>perol Spritz<br>
-            <b>C</b>rown Lager
+            <b>T</b>equila Sunrise, <b>R</b>ibena, <b>A</b>perol Spritz, <b>C</b>rown Lager
         </div>
-
         <div class="name-wrapper">
-            <input type="text" id="name-field" class="name-input" placeholder="Type your name here..." maxlength="4">
+            <input type="text" id="name-field" class="name-input" placeholder="Type name..." maxlength="4">
             <button class="clear-btn" onclick="clearName()">×</button>
         </div>
-        
         <div style="display: flex; justify-content: space-between; margin-top: 5px;">
             <label style="text-align:center; font-size: 0.8rem;"><span class="letter-label">1st</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
             <label style="text-align:center; font-size: 0.8rem;"><span class="letter-label">2nd</span><br><input type="checkbox" class="base-chk" data-points="1"></label>
@@ -246,17 +247,15 @@
     </div>
 
     <div class="challenge-card">
-        <div class="challenge-title">💬 The Scripted Order</div>
-        <div class="challenge-desc">Order using <b>only</b>: "The usual, thanks", "Surprise me", or "I'll have what they're having". No other words allowed.</div>
+        <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">💬 The Scripted Order</div>
+        <div class="challenge-desc">Order using <b>only</b>: "The usual, thanks", "Surprise me", or "I'll have what they're having".</div>
         <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Successful scripted order</label>
     </div>
 
     <div id="secret-section" class="challenge-card secret-card">
-        <div class="challenge-title" style="color: var(--secret); font-size: 1.2rem;">🕵️ Extra Secrets</div>
-        
+        <div class="challenge-title" style="color: var(--secret); font-size: 1.2rem;" onclick="console.log('Secrets active')">🕵️ Extra Secrets</div>
         <div style="margin-bottom: 20px;">
-            <div class="challenge-title">📣 The Public Embarrassment Tour (1pt each)</div>
-            <div class="challenge-desc">Announce arrival at each venue with a specific catchphrase.</div>
+            <div class="challenge-title">📣 The Public Embarrassment Tour</div>
             <div class="flipper-grid">
                 <div class="flipper-loc"><span>Bank: "I'm here to make a deposit!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
                 <div class="flipper-loc"><span>Websters: "Words cannot describe this thirst!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
@@ -265,29 +264,21 @@
                 <div class="flipper-loc"><span>The Newtown Hotel: "New town, same old thirst!"</span> <input type="checkbox" class="secret-chk" data-points="1"></div>
             </div>
         </div>
-
         <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🌍 The Polyglot Principle (4 pts)</div>
-            <div class="challenge-desc">Learn and say "We need leadership" in a new language.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Phrase mastered and performed</label>
+            <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🌍 The Polyglot Principle (4 pts)</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Learn "We need leadership" in a new language</label>
         </div>
-
         <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🍷 The Glandular Redeemer (3 pts)</div>
-            <div class="challenge-desc">A selfless act of refreshment: Buy Owen a drink.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Bounty delivered</label>
+            <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🍷 The Glandular Redeemer (3 pts)</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"> Buy Owen a drink</label>
         </div>
-
         <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🥚 Easter is Gone but Not Forgotten (4 pts)</div>
-            <div class="challenge-desc">Acquire and consume a whole egg mid-crawl.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Egg consumed</label>
+            <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🥚 Easter Forgotten (4 pts)</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Consume a whole egg mid-crawl</label>
         </div>
-
         <div style="margin-bottom: 15px;">
-            <div class="challenge-title">🥧 The Daniella Dish (4 pts)</div>
-            <div class="challenge-desc">Acquire and consume a pie (sweet or savory) mid-crawl.</div>
-            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Pie secured</label>
+            <div class="challenge-title" onclick="this.parentElement.querySelector('input').click()">🥧 The Daniella Dish (4 pts)</div>
+            <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="4"> Acquire and consume a pie mid-crawl</label>
         </div>
     </div>
 
@@ -295,15 +286,13 @@
     <button class="btn reset-btn" onclick="resetScores()">Start Fresh</button>
 
     <div style="text-align: center; margin-top: 30px; padding-bottom: 50px;">
-        <span onclick="toggleRiddle()" style="font-size: 1.8rem; opacity: 0.6; cursor: pointer;">📜</span>
+        <span onclick="toggleRiddle()" style="font-size: 1.8rem; opacity: 0.6;">📜</span>
         <div id="riddle-text" style="display: none;">
             <div class="riddle-box">
-                <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 15px; letter-spacing: 1px; text-align: center;">The Royal Pendulum</p>
+                <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 15px; text-align: center;">The Royal Pendulum</p>
                 <p style="font-style: italic; color: #636e72; font-size: 1rem; line-height: 1.8; text-align: center;">
                     <span class="riddle-line">Where the coin is kept, the pulse begins,</span>
                     <span class="riddle-line">On to the sign where the lemon mallard swims.</span>
-                    <span class="riddle-line">One round trip leaves the truth concealed,</span>
-                    <span class="riddle-line">Only the double-cross is ever revealed.</span>
                 </p>
             </div>
         </div>
@@ -320,26 +309,28 @@
     const nameField = document.getElementById('name-field');
     const canvas = document.getElementById('confetti-canvas');
     const ctx = canvas.getContext('2d');
-    const v = "v47"; 
+    const v = "v48"; 
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playUnlockSound() {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.3);
-        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-        osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+        try {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+        } catch(e) {}
     }
 
     let particles = [];
     function createConfetti() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 80; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height - canvas.height,
@@ -366,7 +357,7 @@
     }
 
     nameField.addEventListener('input', updateNameLabels);
-    function clearName() { nameField.value = ""; updateNameLabels(); nameField.focus(); }
+    function clearName() { nameField.value = ""; updateNameLabels(); }
     function updateNameLabels() {
         const name = nameField.value.toUpperCase();
         const labels = document.querySelectorAll('.letter-label');
@@ -392,7 +383,7 @@
         timerInterval = setInterval(function () {
             min = parseInt(timer / 60, 10); sec = parseInt(timer % 60, 10);
             timerDisplay.textContent = (min < 10 ? "0"+min : min) + ":" + (sec < 10 ? "0"+sec : sec);
-            if (--timer < 0) { clearInterval(timerInterval); alert("Challenge Complete!"); timerDisplay.style.color = "var(--secondary)"; }
+            if (--timer < 0) { clearInterval(timerInterval); alert("Challenge Complete!"); }
         }, 1000);
     }
 

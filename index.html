@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King Street Gauntlet</title>
+    <style>
+        :root {
+            --primary: #f39c12;
+            --dark: #141d26;
+            --card: #2c3e50;
+            --light: #ecf0f1;
+            --accent: #e74c3c;
+            --secret: #9b59b6;
+            --gold: #f1c40f;
+            --btn-bg: #34495e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            margin: 0;
+            padding-bottom: 100px;
+            user-select: none;
+        }
+
+        .header {
+            background: #0d141b;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .score-display { display: flex; justify-content: space-around; font-weight: bold; }
+        .score-box { text-align: center; flex: 1; }
+        .score-val { color: var(--primary); display: block; font-size: 1.4rem; }
+        
+        #secret-score-box { display: none; border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1); }
+        #secret-score-box .score-val { color: var(--secret); }
+
+        .winner-glow {
+            color: var(--gold) !important;
+            text-shadow: 0 0 10px #f1c40f, 0 0 20px #f39c12;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .container { padding: 15px; max-width: 600px; margin: auto; }
+
+        /* UNIVERSAL EMOJI BUTTON STYLING (DISTRACTION) */
+        .emoji-btn, .loc-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--btn-bg);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 5px 10px;
+            margin: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+        .emoji-btn:hover, .loc-btn:hover { border-color: var(--primary); background: #3e5871; }
+        .emoji-btn:active, .loc-btn:active { transform: scale(0.9); background: var(--primary); }
+
+        /* LOCATION BUTTONS */
+        .location-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 15px 0 25px 0; }
+        .loc-btn { border-radius: 50px; font-size: 0.85rem; padding: 8px 15px; }
+
+        .challenge-card {
+            background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 5px solid var(--primary);
+        }
+        
+        .secret-card {
+            background: #2c1a33; border-left: 5px solid var(--secret); display: none;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .challenge-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; }
+        .bonus-section { background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; margin-top: 10px; }
+        .checkbox-item { display: flex; align-items: center; margin: 12px 0; font-size: 1rem; cursor: pointer; }
+        
+        input[type="checkbox"] { width: 28px; height: 28px; margin-right: 12px; accent-color: var(--primary); cursor: pointer; }
+        .flipper-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .flipper-loc { font-size: 0.8rem; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 5px; }
+
+        .btn { border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; margin-top: 10px; cursor: pointer; }
+        .reset-btn { background: var(--accent); color: white; }
+        .hide-btn { background: #7f8c8d; color: white; display: none; margin-bottom: 10px; }
+
+        /* RIDDLE STYLING */
+        #riddle-text { display: none; margin-top: 15px; opacity: 0.5; font-size: 0.8rem; line-height: 1.5; text-align: center; }
+        .riddle-header { letter-spacing: 1px; text-transform: uppercase; color: var(--primary); margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1><span class="emoji-btn">🍻</span> King Street Gauntlet</h1>
+    <div class="score-display">
+        <div class="score-box">Base<span id="base-score" class="score-val">0</span></div>
+        <div class="score-box">Bonus<span id="bonus-score" class="score-val">0</span></div>
+        <div id="secret-score-box" class="score-box">Secret<span id="secret-score" class="score-val">0</span></div>
+        <div class="score-box">Total<span id="total-score" class="score-val">0</span></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="location-container">
+        <button class="loc-btn" onclick="tap('B')">The Bank</button>
+        <button class="loc-btn" onclick="tap('W')">Websters</button>
+        <button class="loc-btn" onclick="tap('K')">Kelly's</button>
+        <button class="loc-btn" onclick="tap('C')">Cooper's</button>
+        <button class="loc-btn" onclick="tap('N')">Newtown</button>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title"><span class="emoji-btn">🦸‍♂️</span> Dorothee's Delight</div>
+        <small>(WEBSTERS ONLY)</small>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Superhero Impersonation</label>
+        <div class="bonus-section">
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Someone guesses you</label>
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> Iron Man</label>
+        </div>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title"><span class="emoji-btn">⚓</span> The Anchor</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Full drink, no letting go</label>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title"><span class="emoji-btn">🐱</span> The Kitty Cat</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Selfie with a cat</label>
+        <div class="bonus-section">
+            <label class="checkbox-item"><input type="checkbox" class="bonus-chk" data-points="1"> 2nd cat selfie</label>
+        </div>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title"><span class="emoji-btn">🎵</span> The Staff Anthem</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Verse about staff member</label>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title"><span class="emoji-btn">🎯</span> The Flipper</div>
+        <div class="flipper-grid">
+            <div class="flipper-loc">B: <input type="checkbox" class="base-chk" data-points="1">L <input type="checkbox" class="base-chk" data-points="1">R</div>
+            <div class="flipper-loc">W: <input type="checkbox" class="base-chk" data-points="1">L <input type="checkbox" class="base-chk" data-points="1">R</div>
+            <div class="flipper-loc">K: <input type="checkbox" class="base-chk" data-points="1">L <input type="checkbox" class="base-chk" data-points="1">R</div>
+            <div class="flipper-loc">C: <input type="checkbox" class="base-chk" data-points="1">L <input type="checkbox" class="base-chk" data-points="1">R</div>
+            <div class="flipper-loc">N: <input type="checkbox" class="base-chk" data-points="1">L <input type="checkbox" class="base-chk" data-points="1">R</div>
+        </div>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title"><span class="emoji-btn">🙋‍♂️</span> Attention Grabber</div>
+        <label class="checkbox-item"><input type="checkbox" class="base-chk" data-points="1"> Arm up for 5 mins</label>
+    </div>
+
+    <div class="challenge-card">
+        <div class="challenge-title"><span class="emoji-btn">🔠</span> The Acronym</div>
+        <div class="flipper-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <label><input type="checkbox" class="base-chk" data-points="1"> T</label>
+            <label><input type="checkbox" class="base-chk" data-points="1"> R</label>
+            <label><input type="checkbox" class="base-chk" data-points="1"> A</label>
+            <label><input type="checkbox" class="base-chk" data-points="1"> C</label>
+        </div>
+    </div>
+
+    <div id="secret-section" class="challenge-card secret-card">
+        <div class="challenge-title" style="color: var(--secret);"><span class="emoji-btn">🕵️</span> TOP SECRET</div>
+        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"><span class="emoji-btn">🥧</span> Daniella Dessert: Eat a pie slice</label>
+        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="3"><span class="emoji-btn">👻</span> Ghost Mode: School photo</label>
+        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="2"><span class="emoji-btn">🤝</span> Roundhouse: Stranger Cheers</label>
+        <label class="checkbox-item"><input type="checkbox" class="secret-chk" data-points="5"><span class="emoji-btn">👑</span> The King: Signature on screen</label>
+    </div>
+
+    <button id="hide-btn" class="btn hide-btn" onclick="hideSecrets()">🙈 Hide Secret List</button>
+    <button class="btn reset-btn" onclick="resetScores()">🔄 Reset All Scores</button>
+
+    <div style="text-align: center; margin-top: 40px; padding: 20px;">
+        <span class="emoji-btn" onclick="toggleRiddle()" style="opacity: 0.4;">📜</span>
+        <div id="riddle-text">
+            <p class="riddle-header">— the royal pendulum —</p>
+            <p>where the coin is kept, the pulse begins,<br>
+            to the new town gate, then back for sins.<br>
+            one round trip leaves the truth concealed,<br>
+            only the double-cross is ever revealed.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const secretSection = document.getElementById('secret-section');
+    const secretScoreBox = document.getElementById('secret-score-box');
+    const hideBtn = document.getElementById('hide-btn');
+    const totalDisplay = document.getElementById('total-score');
+    const riddleText = document.getElementById('riddle-text');
+    
+    let inputSeq = "";
+    const targetSeq = "BNBN"; 
+
+    function tap(letter) {
+        inputSeq += letter;
+        if (inputSeq === targetSeq) {
+            unlockSecrets();
+            inputSeq = "";
+        } else if (!targetSeq.startsWith(inputSeq)) {
+            inputSeq = (letter === targetSeq[0]) ? letter : ""; 
+        }
+    }
+
+    function unlockSecrets() {
+        secretSection.style.display = 'block';
+        secretScoreBox.style.display = 'block';
+        hideBtn.style.display = 'block';
+        localStorage.setItem('unlocked', 'true');
+        calculateScore();
+    }
+
+    function hideSecrets() {
+        secretSection.style.display = 'none';
+        secretScoreBox.style.display = 'none';
+        hideBtn.style.display = 'none';
+        calculateScore();
+    }
+
+    function toggleRiddle() {
+        riddleText.style.display = (riddleText.style.display === 'none' || riddleText.style.display === '') ? 'block' : 'none';
+    }
+
+    window.onload = () => {
+        if(localStorage.getItem('unlocked') === 'true') {
+            unlockSecrets();
+        }
+        checkboxes.forEach((cb, i) => {
+            if(localStorage.getItem('ch-'+i) === 'true') cb.checked = true;
+        });
+        calculateScore();
+    };
+
+    checkboxes.forEach((cb, i) => {
+        cb.addEventListener('change', () => {
+            localStorage.setItem('ch-'+i, cb.checked);
+            calculateScore();
+        });
+    });
+
+    function calculateScore() {
+        let base = 0, bonus = 0, secret = 0, maxVisible = 0;
+
+        document.querySelectorAll('.base-chk').forEach(c => maxVisible += parseInt(c.dataset.points));
+        document.querySelectorAll('.bonus-chk').forEach(c => maxVisible += parseInt(c.dataset.points));
+        document.querySelectorAll('.base-chk:checked').forEach(c => base += parseInt(c.dataset.points));
+        document.querySelectorAll('.bonus-chk:checked').forEach(c => bonus += parseInt(c.dataset.points));
+
+        const isVisible = window.getComputedStyle(secretSection).display === 'block';
+        if (isVisible) {
+            document.querySelectorAll('.secret-chk').forEach(c => maxVisible += parseInt(c.dataset.points));
+            document.querySelectorAll('.secret-chk:checked').forEach(c => secret += parseInt(c.dataset.points));
+        }
+
+        const total = base + bonus + secret;
+        document.getElementById('base-score').innerText = base;
+        document.getElementById('bonus-score').innerText = bonus;
+        document.getElementById('secret-score').innerText = secret;
+        
+        if (total >= maxVisible && total > 0) {
+            totalDisplay.classList.add('winner-glow');
+            totalDisplay.innerHTML = "👑 " + total;
+        } else {
+            totalDisplay.classList.remove('winner-glow');
+            totalDisplay.innerText = total;
+        }
+    }
+
+    function resetScores() {
+        if(confirm("Reset everything?")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -12,6 +12,7 @@
             --card-bg: #ffffff;
             --text: #2f3640;
             --secret: #a29bfe;
+            --farm: #f0932b;
             --gold: #fbc531;
             --btn-bg: #f1f2f6;
         }
@@ -21,11 +22,11 @@
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            padding-bottom: 150px; 
+            padding-bottom: 150px;
             line-height: 1.5;
             scroll-behavior: smooth;
             font-size: 1.05rem;
-            user-select: none; 
+            user-select: none;
         }
 
         /* Stealth Cursors */
@@ -46,24 +47,26 @@
 
         h1 { margin: 0 0 10px 0; font-size: 1.4rem; color: var(--text); }
 
-        .score-display { 
-            display: flex; 
-            justify-content: space-around; 
+        .score-display {
+            display: flex;
+            justify-content: space-around;
             background: var(--btn-bg);
             padding: 10px;
             border-radius: 12px;
             gap: 5px;
         }
+
         .score-box { text-align: center; flex: 1; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; }
         .score-val { color: var(--primary); display: block; font-size: 1.1rem; }
         .max-val { font-size: 0.8rem; color: #95a5a6; font-weight: normal; }
-        
-        #secret-score-box { display: none; color: var(--secret); }
+
+        #secret-score-box, #farm-score-box { display: none; }
         #secret-score-box .score-val { color: var(--secret); }
+        #farm-score-box .score-val { color: var(--farm); }
 
         .container { padding: 15px; max-width: 550px; margin: auto; }
         .location-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-bottom: 20px; }
-        
+
         .loc-btn {
             background: var(--card-bg); border: 2px solid var(--secondary); border-radius: 20px;
             padding: 8px 14px; margin: 2px; color: var(--secondary);
@@ -71,16 +74,18 @@
         }
 
         .challenge-card {
-            background: var(--card-bg); border-radius: 15px; padding: 18px; 
+            background: var(--card-bg); border-radius: 15px; padding: 18px;
             margin-bottom: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f1f2f6;
         }
-        
+
         .secret-card { background: #fdfaff; border: 2px dashed var(--secret); display: none; animation: fadeIn 0.8s ease; }
+        .farm-card { background: #fffcf9; border: 2px dashed var(--farm); display: none; animation: fadeIn 0.8s ease; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .challenge-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 6px; color: var(--text); }
         .challenge-desc { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 12px; font-style: italic; }
-        
+
         .bonus-section { background: #fffafa; padding: 10px; border-radius: 10px; margin-top: 10px; border: 1px inset #fff1f1; transition: opacity 0.3s; }
         .locked { opacity: 0.35; pointer-events: none; }
 
@@ -116,6 +121,7 @@
         .btn { border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 10px; font-size: 1rem; }
         .reset-btn { background: #dfe6e9; color: #636e72; }
         .hide-btn { background: var(--secret); color: white; display: none; margin-bottom: 10px; }
+        .hide-farm-btn { background: var(--farm); color: white; display: none; margin-bottom: 10px; }
 
         .timer-display { font-family: monospace; font-size: 1.4rem; color: var(--primary); font-weight: bold; display: none; margin: 8px 0; }
 
@@ -145,6 +151,7 @@
         <div class="score-box">Base<span class="score-val"><span id="base-score">0</span> <span class="max-val">/ <span id="max-base">0</span></span></span></div>
         <div class="score-box">Bonus<span class="score-val"><span id="bonus-score">0</span> <span class="max-val">/ <span id="max-bonus">0</span></span></span></div>
         <div id="secret-score-box" class="score-box">Secret<span class="score-val"><span id="secret-score">0</span> <span class="max-val">/ <span id="max-secret">0</span></span></span></div>
+        <div id="farm-score-box" class="score-box">Farm<span class="score-val"><span id="farm-score">0</span> <span class="max-val">/ <span id="max-farm">0</span></span></span></div>
         <div class="score-box">Total<span class="score-val"><span id="total-score">0</span> <span class="max-val">/ <span id="max-total">0</span></span></span></div>
     </div>
 </div>
@@ -237,7 +244,6 @@
     <div class="challenge-card">
         <div class="challenge-title">🔠 The Alcoholic Acronym</div>
         <div class="challenge-desc">Order <b>four</b> different drinks starting with the first <b>four</b> letters of your name.</div>
-        
         <div class="example-box">
             <i>Example for <b>Tracey</b>:</i><br>
             <span class="acrostic"><b>T</b>equila Sunrise</span>
@@ -245,7 +251,6 @@
             <span class="acrostic"><b>A</b>perol Spritz</span>
             <span class="acrostic"><b>C</b>rown Lager</span>
         </div>
-
         <div class="name-wrapper">
             <input type="text" id="name-field" class="name-input" placeholder="Type your name..." maxlength="20">
             <button class="clear-btn" onclick="clearName()">×</button>
@@ -304,7 +309,27 @@
         </div>
     </div>
 
+    <div id="farm-section" class="challenge-card farm-card">
+        <div class="challenge-title" style="color: var(--farm); font-size: 1.2rem;">🚜 The Barnyard Bypass</div>
+        <div style="margin-bottom: 15px;">
+            <div class="challenge-title">🐥 The Poultry Promenade (9 pts)</div>
+            <div class="challenge-desc">Continuously make chicken noises as you cross the road from The Bank to Websters. Don't be a chicken—actually, do. Feathers optional, dignity discouraged.</div>
+            <label class="checkbox-item"><input type="checkbox" class="farm-chk" data-points="9"> Crossed the road clucking</label>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <div class="challenge-title">🐄 The Bovine Boulevard (9 pts)</div>
+            <div class="challenge-desc">Make cow noises on the walk between either Websters and Kelly’s or Kelly’s and The Cooper's. A truly legend-dairy performance is required.</div>
+            <label class="checkbox-item"><input type="checkbox" class="farm-chk" data-points="9"> Moo-ved between stops</label>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <div class="challenge-title">🐎 The Equestrian Expressway (9 pts)</div>
+            <div class="challenge-desc">Make horse noises while crossing the road between The Cooper's and The Newtown Hotel. Stop horsing around and gallop to the finish.</div>
+            <label class="checkbox-item"><input type="checkbox" class="farm-chk" data-points="9"> Galloped across the finish</label>
+        </div>
+    </div>
+
     <button id="hide-btn" class="btn hide-btn" onclick="hideSecrets()">🙈 Hide Secrets</button>
+    <button id="hide-farm-btn" class="btn hide-farm-btn" onclick="hideFarm()">🚜 Hide Barnyard</button>
     <button class="btn reset-btn" onclick="resetScores()">Start Fresh</button>
 
     <div style="text-align: center; margin-top: 30px; padding-bottom: 50px;">
@@ -313,9 +338,9 @@
             <div class="riddle-box">
                 <p style="text-transform: uppercase; color: var(--secondary); font-weight: bold; margin-bottom: 15px; text-align: center; font-size: 1.1rem;">The Royal Pendulum</p>
                 <p style="font-style: italic; color: #636e72; font-size: 1rem; line-height: 1.8; text-align: center; margin: 0;">
-                    Where the coin is kept, the pulse begins,
-                    On to the sign where the lemon mallard swims.
-                    One round trip leaves the truth concealed,
+                    Where the coin is kept, the pulse begins,<br>
+                    On to the sign where the lemon mallard swims.<br>
+                    One round trip leaves the truth concealed,<br>
                     Only the double-cross is ever revealed.
                 </p>
             </div>
@@ -326,14 +351,17 @@
 <script>
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const secretSection = document.getElementById('secret-section');
+    const farmSection = document.getElementById('farm-section');
     const secretScoreBox = document.getElementById('secret-score-box');
+    const farmScoreBox = document.getElementById('farm-score-box');
     const hideBtn = document.getElementById('hide-btn');
+    const hideFarmBtn = document.getElementById('hide-farm-btn');
     const riddleText = document.getElementById('riddle-text');
     const gradBar = document.getElementById('grad-progress');
     const nameField = document.getElementById('name-field');
     const canvas = document.getElementById('confetti-canvas');
     const ctx = canvas.getContext('2d');
-    const v = "v55"; 
+    const v = "v65"; 
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playUnlockSound() {
@@ -365,7 +393,6 @@
             });
         }
     }
-
     function drawConfetti() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach((p, i) => {
@@ -401,7 +428,6 @@
         if (this.checked) { startTimer(120); } 
         else { clearInterval(timerInterval); timerDisplay.style.display = 'none'; }
     });
-
     function startTimer(duration) {
         timerDisplay.style.display = 'block';
         let timer = duration, min, sec;
@@ -416,8 +442,11 @@
     let inputSeq = "";
     function tap(letter) {
         inputSeq += letter;
-        if (inputSeq === "BNBN") { unlockSecrets(true); inputSeq = ""; }
-        else if (!"BNBN".startsWith(inputSeq)) { inputSeq = (letter === "B") ? "B" : ""; }
+        if (inputSeq.includes("BNBN")) { unlockSecrets(true); inputSeq = ""; }
+        else if (inputSeq.includes("BWBCNC")) { unlockFarm(true); inputSeq = ""; }
+        else if (!"BNBN".startsWith(inputSeq) && !"BWBCNC".startsWith(inputSeq)) { 
+            inputSeq = (letter === "B") ? "B" : ""; 
+        }
     }
 
     function unlockSecrets(isFreshUnlock = false) {
@@ -429,18 +458,28 @@
             setTimeout(() => { secretSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
         }
     }
-
     function hideSecrets() {
         secretSection.style.display = 'none'; secretScoreBox.style.display = 'none'; hideBtn.style.display = 'none';
         localStorage.setItem('hidden_'+v, 'true'); calculateScore();
+    }
+    function unlockFarm(isFreshUnlock = false) {
+        farmSection.style.display = 'block'; farmScoreBox.style.display = 'block'; hideFarmBtn.style.display = 'block';
+        localStorage.setItem('farm_unlocked_'+v, 'true'); localStorage.setItem('farm_hidden_'+v, 'false'); 
+        calculateScore();
+        if (isFreshUnlock) {
+            playUnlockSound(); createConfetti(); drawConfetti();
+            setTimeout(() => { farmSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+        }
+    }
+    function hideFarm() {
+        farmSection.style.display = 'none'; farmScoreBox.style.display = 'none'; hideFarmBtn.style.display = 'none';
+        localStorage.setItem('farm_hidden_'+v, 'true'); calculateScore();
     }
 
     function toggleRiddle() { 
         const isHidden = riddleText.style.display === 'none';
         riddleText.style.display = isHidden ? 'block' : 'none'; 
-        if(isHidden) {
-            setTimeout(() => { riddleText.scrollIntoView({ behavior: 'smooth' }); }, 100);
-        }
+        if(isHidden) setTimeout(() => { riddleText.scrollIntoView({ behavior: 'smooth' }); }, 100);
     }
 
     function updateLocks() {
@@ -450,13 +489,17 @@
                 if (root.checked) bonusSection.classList.remove('locked');
                 else {
                     bonusSection.classList.add('locked');
-                    bonusSection.querySelectorAll('input').forEach(cb => { cb.checked = false; localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(cb), 'false'); });
+                    bonusSection.querySelectorAll('input').forEach(cb => { 
+                        cb.checked = false; 
+                        localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(cb), 'false'); 
+                    });
                 }
             }
         });
         const c1 = document.getElementById('cat-1'), c2 = document.getElementById('cat-2'), c3 = document.getElementById('cat-3'), w3 = document.getElementById('cat-3-wrapper');
         if (c1 && c2 && c1.checked && c2.checked) w3.classList.remove('locked');
-        else if (w3) { w3.classList.add('locked'); c3.checked = false; localStorage.setItem('ch_'+v+'_'+Array.from(checkboxes).indexOf(c3), 'false'); }
+        else if (w3) { w3.classList.add('locked'); c3.checked = false; }
+
         const g1 = document.getElementById('grad-1'), g2 = document.getElementById('grad-2'), g3 = document.getElementById('grad-3'), w2 = document.getElementById('grad-2-wrapper'), w3g = document.getElementById('grad-3-wrapper');
         let prog = 0;
         if (g1 && g1.checked) { w2.classList.remove('locked'); prog = 33.3; } else if (w2) { w2.classList.add('locked'); g2.checked = false; }
@@ -466,27 +509,40 @@
     }
 
     function calculateScore() {
-        let b = 0, mb = 0, bo = 0, mbo = 0, s = 0, ms = 0;
+        let b = 0, mb = 0, bo = 0, mbo = 0, s = 0, ms = 0, f = 0, mf = 0;
         document.querySelectorAll('.base-chk').forEach(c => { mb += 1; if(c.checked) b += 1; });
         document.querySelectorAll('.bonus-chk').forEach(c => { mbo += 1; if(c.checked) bo += 1; });
+        
         if (window.getComputedStyle(secretSection).display === 'block') {
             document.querySelectorAll('.secret-chk').forEach(c => { let p = parseInt(c.dataset.points) || 1; ms += p; if(c.checked) s += p; });
         }
+        if (window.getComputedStyle(farmSection).display === 'block') {
+            document.querySelectorAll('.farm-chk').forEach(c => { let p = parseInt(c.dataset.points) || 1; mf += p; if(c.checked) f += p; });
+        }
+
         document.getElementById('base-score').innerText = b; document.getElementById('max-base').innerText = mb;
         document.getElementById('bonus-score').innerText = bo; document.getElementById('max-bonus').innerText = mbo;
         document.getElementById('secret-score').innerText = s; document.getElementById('max-secret').innerText = ms;
-        document.getElementById('total-score').innerText = b + bo + s; document.getElementById('max-total').innerText = mb + mbo + ms;
+        document.getElementById('farm-score').innerText = f; document.getElementById('max-farm').innerText = mf;
+        document.getElementById('total-score').innerText = b + bo + s + f; document.getElementById('max-total').innerText = mb + mbo + ms + mf;
     }
 
     window.onload = () => {
-        if(localStorage.getItem('unlocked_'+v) === 'true' && localStorage.getItem('hidden_'+v) !== 'true') { unlockSecrets(false); }
+        if(localStorage.getItem('unlocked_'+v) === 'true' && localStorage.getItem('hidden_'+v) !== 'true') unlockSecrets(false);
+        if(localStorage.getItem('farm_unlocked_'+v) === 'true' && localStorage.getItem('farm_hidden_'+v) !== 'true') unlockFarm(false);
         if(localStorage.getItem('crawl_name_'+v)) { nameField.value = localStorage.getItem('crawl_name_'+v); updateNameLabels(); }
         checkboxes.forEach((cb, i) => { if(localStorage.getItem('ch_'+v+'_'+i) === 'true') cb.checked = true; });
         updateLocks(); calculateScore();
     };
+
     checkboxes.forEach((cb, i) => {
-        cb.addEventListener('change', () => { localStorage.setItem('ch_'+v+'_'+i, cb.checked); updateLocks(); calculateScore(); });
+        cb.addEventListener('change', () => { 
+            localStorage.setItem('ch_'+v+'_'+i, cb.checked); 
+            updateLocks(); 
+            calculateScore(); 
+        });
     });
+
     function resetScores() { if(confirm("Reset progress?")) { localStorage.clear(); location.reload(); }}
 </script>
 </body>
